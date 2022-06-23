@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+    <a class="navbar-brand h1" href="">easyRecipe</a>
+     <div class="collapse navbar-collapse navbar-nav" id="navbarSupportedContent">
+         <a class="nav-link active" href="#">Home</a>
+         <form class="form-inline">
+             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+         </form>
+     </div>
+    <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#">Login</a>
+        <a class="nav-item nav-link active" href="#">Logout</a>
+    </div>
+</nav>
+</body>
+</html>

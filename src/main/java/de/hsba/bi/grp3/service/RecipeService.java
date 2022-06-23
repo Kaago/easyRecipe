@@ -31,7 +31,7 @@ public class RecipeService {
         return repository.save(recipe);
     }
 
-    public Recipe getJournal(Long id) { return repository.findById(id).orElse(null); }
+    public Recipe getRecipe(Long id) { return repository.findById(id).orElse(null); }
 
 
     public Collection<Recipe> getAll() {

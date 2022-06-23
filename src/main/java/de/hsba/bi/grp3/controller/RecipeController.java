@@ -29,13 +29,13 @@ public class RecipeController {
 
     @GetMapping(path = "/{id}")
     public String showRecipe(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("recipe", recipeService.getJournal(id));
+        model.addAttribute("recipe", recipeService.getRecipe(id));
         return "recipes/showRecipe";
     }
 
     @GetMapping(path = "/editRecipe/{id}")
-    public String editRecipe(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("recipe", recipeService.getJournal(id));
+    public String showEditableRecipe(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("recipe", recipeService.getRecipe(id));
         return "recipes/editRecipe";
     }
 
@@ -43,6 +43,18 @@ public class RecipeController {
     public String createRecipe(String name) {
         Recipe recipe = recipeService.createRecipe(name);
         return "redirect:/recipes/editRecipe/" + recipe.getId();
+    }
+
+    @PostMapping(path = "/{id}")
+    public String editRecipe(@PathVariable("id") Long id, Model model) {
+        Recipe recipe = recipeService.getRecipe(id);
+        return "redirect:/recipes/editRecipe/" + recipe.getId();
+    }
+
+    @PostMapping(path = "/editRecipe/{id}")
+    public String saveRecipe(@PathVariable("id") Long id, String name) {
+        Recipe recipe = recipeService.getRecipe(id);
+        return "redirect:/recipes/" + recipe.getId();
     }
 
     @PostMapping(path = "/{id}/delete")
