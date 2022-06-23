@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:replace="fragments/style :: header"></header>
+<div class="container">
+  <nav th:insert="fragments/menu :: navbar"></nav>
+  <div class="my-4">
+    <H1>Create a Recipe</H1>
+    <form form-row mb-2>
+      <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-sm-2" for="nameRecipe">Name of Recipe:</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" id="nameRecipe" name="nameRecipe">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-sm-2" for="descriptionRecipe">Additional
+          Information:</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" id="descriptionRecipe"
+                 name="descriptionRecipe">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-sm-2" for="Portions">Portions:</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="number" id="Portions" name="Portions">
+        </div>
+      </div>
+      <div class="form-group row">
+        <table class="table">
+          <tr>
+            <th>Amount</th>
+            <th>Unit of Measurement</th>
+            <th>Name of Ingredient</th>
+          </tr>
+          <tr>
+            <th><input class="form-control form-control-sm" type="number" id="AmountIngredient" name="AmountIngredient"></th>
+            <th><select class="form-control form-control-sm" id="Difficulty">
+              <option value="easy">easy</option>
+              <option value="moderate">moderate</option>
+              <option value="hard">hard</option>
+            </select></th>
+            <th><input class="form-control form-control-sm" type="text" id="TextIngredient" name="TextIngredient"></th>
+          </tr>
+        </table>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-sm-2" for="Instruction">Instruction:</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" id="Instruction" name="Instruction">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-sm-2" for="prepTime">Preparation Time:</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="number" id="prepTime" name="prepTime">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-sm-2" for="cookTime">Cooking Time:</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="number" id="cookTime" name="cookTime">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-sm-2" for="isPrivat">Private Recipe?</label>
+        <div class="col-sm-10">
+          <input class="form-control-sm" type="checkbox" id="isPrivat" name="cookTime">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button class="btn btn-primary btn-sm" type="submit">Create new recipe</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

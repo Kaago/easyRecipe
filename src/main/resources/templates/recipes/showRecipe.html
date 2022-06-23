@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:replace="fragments/style :: header"></header>
+<div class="container">
+    <nav th:insert="fragments/menu :: navbar"></nav>
+    <div class="my-4">
+        <H1 th:text="${recipe.title}" ></H1>
+        <div class="d-flex justify-content-center">
+            <span>Description: </span>
+            <span th:text="${recipe.description}"> </span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
