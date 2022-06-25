@@ -7,8 +7,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -27,5 +25,8 @@ public class TestDataCreator {
         recipe.setPrepTime(20);
         recipe.setCookTime(60);
         recipe.setDifficulty(Difficulty.moderate);
+        recipeService.addIngredient(recipe, new Ingredient("Tomaten", 400.0, UnitOfMeasure.g));
+        recipeService.addIngredient(recipe, new Ingredient("Mehl", 500.0, UnitOfMeasure.g));
+        recipeService.saveRecipe(recipe);
     }
 }

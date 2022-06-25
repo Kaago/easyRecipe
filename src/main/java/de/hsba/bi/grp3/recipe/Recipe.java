@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class Recipe {
 
     @Id
@@ -18,43 +20,26 @@ public class Recipe {
     @Getter
     private Long id;
 
-    @Getter
-    @Setter
     private String title;
 
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     private String instruction;
 
-    @Getter
-    @Setter
     private int prepTime;
 
-    @Getter
-    @Setter
     private int cookTime;
 
-    @Getter
-    @Setter
     private int servings;
 
-    @Getter
-    @Setter
     @Enumerated
     private Difficulty difficulty;
 
-    @Getter
-    @Setter
     private boolean isPrivat;
 
 
-    @Getter
-    @Setter
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
+    @OrderBy
     private List<Ingredient> ingredients;
 
 

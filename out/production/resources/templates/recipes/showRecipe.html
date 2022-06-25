@@ -36,20 +36,20 @@
             </table>
         </div>
         <div class="d-flex flex-row">
-            <table class="table">
-                <tr>
-                <tr>
-                    <th>Amount</th>
-                    <th>Unit of Measurement</th>
-                    <th>Name of Ingredient</th>
-                </tr>
-                </tr>
-                <tr>
-                </tr>
-            </table>
+                <table th:if="${recipe.ingredientEntries != null and recipe != null}" class="table">
+                    <tr>
+                        <th>Amount</th>
+                        <th>Unit of Measurement</th>
+                        <th>Name of Ingredient</th>
+                    </tr>
+                    <tr th:each="ingredient : ${recipe.ingredientEntries}">
+                        <td th:text="${ingredient.amount}"></td>
+                        <td th:text="${ingredient.uom}"></td>
+                        <td th:text="${ingredient.name}"></td>
+                    </tr>
+                </table>
         </div>
         <form th:action="${'/recipes/' + recipe.id}" method="post" class="form-inline">
-            <input name="name" type="text" placeholder="Name" class="form-control mr-2">
             <button type="submit" class="btn btn-primary">Edit recipe</button>
         </form>
     </div>

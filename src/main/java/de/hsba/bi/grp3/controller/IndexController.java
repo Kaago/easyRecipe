@@ -13,7 +13,7 @@ import java.util.List;
 public class IndexController {
 
     @GetMapping
-    public String index() {
+    public String indexRedirect() {
         return "redirect:/recipes/";
     }
 }
