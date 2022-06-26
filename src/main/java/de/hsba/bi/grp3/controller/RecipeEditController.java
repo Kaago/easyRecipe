@@ -25,7 +25,7 @@ public class RecipeEditController {
     private final RecipeService recipeService;
     private final RecipeFormConverter formConverter;
 
-    @ModelAttribute("journal")
+    @ModelAttribute("recipe")
     public Recipe getRecipeById(@PathVariable("id") Long id) {
         Recipe recipe = recipeService.getRecipe(id);
         if (recipe == null) {
@@ -33,6 +33,13 @@ public class RecipeEditController {
         }
         return recipe;
     }
+
+
+    public void saveRecipe(@PathVariable("id") Long id, @ModelAttribute("recipeForm") RecipeForm recipeForm) {
+        Recipe recipe = getRecipeById(id);
+        recipeService.saveRecipe(formConverter.update(recipe, recipeForm));
+    }
+
 
     @GetMapping
     public String showEditableRecipe(@PathVariable("id") Long id, Model model) {
@@ -43,30 +50,24 @@ public class RecipeEditController {
         model.addAttribute("unitOfMeasureList", unitOfMeasureList);
         List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
         model.addAttribute("difficultyList", difficultyList);
-        List<Ingredient> ingredientList = recipeService.getRecipe(id).getIngredients();
-        model.addAttribute("ingredientList", ingredientList);
         return "recipes/editRecipe";
     }
 
     @RequestMapping(path = "/addIngredient", params="action=addIngredient")
-    public String addIngredient(@PathVariable("id") Long id, @ModelAttribute Recipe recipeData, Ingredient ingredient) {
-        Recipe recipe = recipeService.getRecipe(id);
-        recipeService.addIngredient(recipe, ingredient);
-        recipeService.saveFormData(id, recipeData);
-        return "redirect:/recipes/editRecipe/" + recipe.getId();
+    public String addIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredientForm") IngredientForm ingredientForm) {
+        Recipe recipe = getRecipeById(id);
+        recipeService.addIngredient(recipe, formConverter.update(new Ingredient(), ingredientForm));
+        return "redirect:/recipes/editRecipe/" + id;
     }
-    @RequestMapping(path = "/deleteIngredient", params="action=deleteIngredient")
-    public String deleteIngredient(@PathVariable("id") Long id, @ModelAttribute Recipe recipeData, @RequestParam(value="ingredientListPos") int ingredientListPos){
+    @GetMapping(path = "/deleteIngredient/{indexId}")
+    public String deleteIngredient(@PathVariable("id") Long id, @PathVariable(value="indexId") int ingredientListPos){
         Recipe recipe = recipeService.getRecipe(id);
-        Ingredient ingredient = recipe.getIngredientEntries().get(ingredientListPos);
-        recipeService.deleteIngredient(recipe, ingredient);
-        recipeService.saveFormData(id, recipeData);
+        recipeService.deleteIngredientByIndexId(recipe, ingredientListPos);
         return "redirect:/recipes/editRecipe/" + recipe.getId();
     }
     @PostMapping
-    public String saveRecipe(@PathVariable("id") Long id, @ModelAttribute("recipeForm") RecipeForm recipeForm){
-        Recipe recipe = getRecipeById(id);
-        recipeService.saveRecipe(formConverter.update(recipe, recipeForm));
+    public String saveAndShowRecipe(@PathVariable("id") Long id, @ModelAttribute("recipeForm") RecipeForm recipeForm){
+        saveRecipe(id, recipeForm);
         return "redirect:/recipes/" + id;
     }
 

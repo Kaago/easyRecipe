@@ -7,6 +7,7 @@ import de.hsba.bi.grp3.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class RecipeService {
@@ -30,32 +31,15 @@ public class RecipeService {
         saveRecipe(recipe);
     }
 
-    public void deleteIngredient(Recipe recipe, Ingredient ingredient) {
-        ingredient.setRecipe(recipe);
-        recipe.getIngredientEntries().remove(ingredient);
+    public void deleteIngredientByIndexId(Recipe recipe, int indexId) {
+        List<Ingredient> ingredients = recipe.getIngredientEntries();
+        Ingredient ingredient = ingredients.get(indexId);
+        ingredients.remove(ingredient);
         saveRecipe(recipe);
     }
 
     public Recipe saveRecipe(Recipe recipe) {
         return repository.save(recipe);
-    }
-
-    public Recipe assignFormData(Recipe inputRecipeDate, Recipe recipe) {
-        recipe.setTitle(inputRecipeDate.getTitle());
-        recipe.setDescription(inputRecipeDate.getDescription());
-        recipe.setInstruction(inputRecipeDate.getInstruction());
-        recipe.setServings(inputRecipeDate.getServings());
-        recipe.setPrepTime(inputRecipeDate.getPrepTime());
-        recipe.setCookTime(inputRecipeDate.getCookTime());
-        recipe.setDifficulty(inputRecipeDate.getDifficulty());
-        recipe.setPrivat(inputRecipeDate.isPrivat());
-        return recipe;
-    }
-
-    public void saveFormData(Long id, Recipe inputRecipeDate){
-        Recipe recipe = getRecipe(id);
-        recipe = assignFormData(inputRecipeDate, recipe);
-        saveRecipe(recipe);
     }
 
 
