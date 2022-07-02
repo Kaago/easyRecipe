@@ -7,6 +7,7 @@ import de.hsba.bi.grp3.recipe.Ingredient;
 import de.hsba.bi.grp3.recipe.Recipe;
 import de.hsba.bi.grp3.recipe.UnitOfMeasure;
 import de.hsba.bi.grp3.service.RecipeService;
+import exceptionHandlers.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class RecipeShowController {
     public Recipe getRecipeById(@PathVariable("id") Long id) {
         Recipe recipe = recipeService.getRecipe(id);
         if (recipe == null) {
-            // throw new NotFoundException();
+             throw new NotFoundException();
         }
         return recipe;
     }
