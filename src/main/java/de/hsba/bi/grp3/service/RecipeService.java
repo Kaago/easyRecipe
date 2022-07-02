@@ -6,10 +6,12 @@ import de.hsba.bi.grp3.recipe.Recipe;
 import de.hsba.bi.grp3.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 
 @Service
+@Transactional
 public class RecipeService {
 
     private final RecipeRepository repository;
