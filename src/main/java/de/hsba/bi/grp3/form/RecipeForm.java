@@ -5,23 +5,34 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Enumerated;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 public class RecipeForm {
     private Long id;
 
+    @NotEmpty(message = "Please enter a Title!")
     private String title;
 
     private String description;
 
+    @NotEmpty(message = "Please enter an Instruction!")
     private String instruction;
 
-    private int prepTime;
+    @NotNull(message = "Please enter an amount!")
+    @Min(value = 0, message = "no negative values")
+    private BigDecimal prepTime;
 
-    private int cookTime;
+    @NotNull(message = "Please enter an amount!")
+    private BigDecimal cookTime;
 
-    private int servings;
+    @NotNull(message = "Please enter an amount!")
+    private BigDecimal servings;
 
     @Enumerated
     private Difficulty difficulty;

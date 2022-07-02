@@ -12,7 +12,8 @@
       <div class="form-group row">
         <label class="col-form-label col-form-label-sm col-sm-2" for="title">Name of Recipe:</label>
         <div class="col-sm-10">
-          <input class="form-control form-control-sm" type="text" id="title" th:field="*{title}">
+           <input class="form-control form-control-sm" type="text" id="title" th:field="*{title}" th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}">
+          <span class="text-danger" th:errors="*{title}" />
         </div>
       </div>
       <div class="form-group row">
@@ -24,13 +25,15 @@
       <div class="form-group row">
         <label class="col-form-label col-form-label-sm col-sm-2" for="servings">Portions:</label>
         <div class="col-sm-10">
-          <input class="form-control form-control-sm" type="number" id="servings" name="servings" th:field="*{servings}">
+          <input class="form-control form-control-sm" type="number" id="servings" name="servings" th:field="*{servings}" th:classappend="${#fields.hasErrors('servings') ? 'is-invalid' : ''}">
+          <span class="text-danger" th:errors="*{servings}" />
         </div>
       </div>
       <div class="form-group row">
         <label class="col-form-label col-form-label-sm col-sm-2" for="instruction">Instruction:</label>
         <div class="col-sm-10">
-          <input class="form-control form-control-sm" type="text" id="instruction" name="instruction" th:field="*{instruction}">
+          <input class="form-control form-control-sm" type="text" id="instruction" name="instruction" th:field="*{instruction}" th:classappend="${#fields.hasErrors('instruction') ? 'is-invalid' : ''}">
+          <span class="text-danger" th:errors="*{instruction}" />
         </div>
       </div>
       <div class="form-group row">
@@ -44,13 +47,15 @@
       <div class="form-group row">
         <label class="col-form-label col-form-label-sm col-sm-2" for="prepTime">Preparation Time:</label>
         <div class="col-sm-10">
-          <input class="form-control form-control-sm" type="number" id="prepTime" name="prepTime" th:field="*{prepTime}">
+          <input class="form-control form-control-sm" type="number" min="0" id="prepTime" name="prepTime" th:field="*{prepTime}" th:classappend="${#fields.hasErrors('prepTime') ? 'is-invalid' : ''}">
+          <span class="text-danger" th:errors="*{prepTime}" />
         </div>
       </div>
       <div class="form-group row">
         <label class="col-form-label col-form-label-sm col-sm-2" for="cookTime">Cooking Time:</label>
         <div class="col-sm-10">
-          <input class="form-control form-control-sm" type="number" id="cookTime" name="cookTime" th:field="*{cookTime}">
+          <input class="form-control form-control-sm" type="number" id="cookTime" name="cookTime" th:field="*{cookTime}" th:classappend="${#fields.hasErrors('cookTime') ? 'is-invalid' : ''}">
+          <span class="text-danger" th:errors="*{cookTime}" />
         </div>
       </div>
       <div class="form-group row">
@@ -83,11 +88,11 @@
         </tr>
         <tr>
           <form th:action="${'/recipes/editRecipe/' + recipe.id + '/addIngredient/'}" th:object="${ingredientForm}" method="post">
-            <th><input class="form-control form-control-sm" type="number" id="amount" th:field="*{amount}"></th>
+            <th><input class="form-control form-control-sm" type="number" id="amount" th:field="*{amount}" th:classappend="${#fields.hasErrors('amount') ? 'is-invalid' : ''}"><span class="text-danger" th:errors="*{amount}" /></th>
             <th><select class="form-control form-control-sm" id="uom" th:field="*{uom}">
               <option th:each="unitOfMeasure : ${unitOfMeasureList}" th:text="${unitOfMeasure}" th:value="${unitOfMeasure}"></option>
             </select></th>
-            <th><input class="form-control form-control-sm" type="text" id="name" th:field="*{name}"></th>
+            <th><input class="form-control form-control-sm" type="text" id="name" th:field="*{name}" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"><span class="text-danger" th:errors="*{name}" /></th>
             <th><button class="btn btn-primary btn-sm" type="submit" name="action" value="addIngredient">Add Ingredient</button></th>
           </form>
         </tr>

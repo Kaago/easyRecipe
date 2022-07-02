@@ -12,8 +12,10 @@ import de.hsba.bi.grp3.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,8 +56,16 @@ public class RecipeEditController {
     }
 
     @RequestMapping(path = "/addIngredient", params="action=addIngredient")
-    public String addIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredientForm") IngredientForm ingredientForm) {
+    public String addIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredientForm") @Valid IngredientForm ingredientForm, BindingResult ingredientBinding, Model model) {
         Recipe recipe = getRecipeById(id);
+        if (ingredientBinding.hasErrors()) {
+            model.addAttribute("recipeForm", formConverter.toForm(recipe));
+            List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
+            model.addAttribute("unitOfMeasureList", unitOfMeasureList);
+            List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
+            model.addAttribute("difficultyList", difficultyList);
+            return "recipes/editRecipe";
+        }
         recipeService.addIngredient(recipe, formConverter.update(new Ingredient(), ingredientForm));
         return "redirect:/recipes/editRecipe/" + id;
     }
@@ -66,7 +76,15 @@ public class RecipeEditController {
         return "redirect:/recipes/editRecipe/" + recipe.getId();
     }
     @PostMapping
-    public String saveAndShowRecipe(@PathVariable("id") Long id, @ModelAttribute("recipeForm") RecipeForm recipeForm){
+    public String saveAndShowRecipe(@PathVariable("id") Long id, @ModelAttribute("recipeForm") @Valid RecipeForm recipeForm, BindingResult recipeBinding, Model model){
+        if (recipeBinding.hasErrors()) {
+            model.addAttribute("ingredientForm", new IngredientForm());
+            List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
+            model.addAttribute("unitOfMeasureList", unitOfMeasureList);
+            List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
+            model.addAttribute("difficultyList", difficultyList);
+            return "recipes/editRecipe";
+        }
         saveRecipe(id, recipeForm);
         return "redirect:/recipes/" + id;
     }

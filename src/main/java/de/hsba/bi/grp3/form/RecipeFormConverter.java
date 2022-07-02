@@ -31,6 +31,11 @@ public class RecipeFormConverter {
         return recipe;
     }
 
+    public Recipe createRecipe(Recipe recipe, RecipeCreateForm recipeCreateForm){
+        recipe.setTitle(recipeCreateForm.getTitle());
+        return recipe;
+    }
+
     public IngredientForm toForm(IngredientForm ingredientForm) {
         IngredientForm form = new IngredientForm();
         form.setName(ingredientForm.getName());

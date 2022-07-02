@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class Ingredient {
     private Long id;
 
     private String name;
-    private Double amount;
+    private BigDecimal amount;
 
     @Enumerated
     private UnitOfMeasure uom;
@@ -31,7 +32,7 @@ public class Ingredient {
 
     }
 
-    public Ingredient(String name, Double amount, UnitOfMeasure uom) {
+    public Ingredient(String name, BigDecimal amount, UnitOfMeasure uom) {
         this.name = name;
         this.amount = amount;
         this.uom = uom;

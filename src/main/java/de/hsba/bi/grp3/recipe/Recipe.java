@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,11 +27,11 @@ public class Recipe {
 
     private String instruction;
 
-    private int prepTime;
+    private BigDecimal prepTime;
 
-    private int cookTime;
+    private BigDecimal cookTime;
 
-    private int servings;
+    private BigDecimal servings;
 
     @Enumerated
     private Difficulty difficulty;
