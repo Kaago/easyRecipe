@@ -19,7 +19,8 @@
       <div class="form-group row">
         <label class="col-form-label col-form-label-sm col-sm-2" for="description">Additional Information:</label>
         <div class="col-sm-10">
-          <input class="form-control form-control-sm" type="text" id="description" th:field="*{description}">
+          <input class="form-control form-control-sm" type="text" id="description" th:field="*{description}" th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}">
+          <span class="text-danger" th:errors="*{description}" />
         </div>
       </div>
       <div class="form-group row">
@@ -32,7 +33,7 @@
       <div class="form-group row">
         <label class="col-form-label col-form-label-sm col-sm-2" for="instruction">Instruction:</label>
         <div class="col-sm-10">
-          <input class="form-control form-control-sm" type="text" id="instruction" name="instruction" th:field="*{instruction}" th:classappend="${#fields.hasErrors('instruction') ? 'is-invalid' : ''}">
+          <textarea class="form-control form-control-sm" type="text" id="instruction" name="instruction" th:field="*{instruction}" th:classappend="${#fields.hasErrors('instruction') ? 'is-invalid' : ''}"> </textarea>
           <span class="text-danger" th:errors="*{instruction}" />
         </div>
       </div>

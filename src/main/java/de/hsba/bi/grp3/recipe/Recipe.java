@@ -21,10 +21,12 @@ public class Recipe {
     @Getter
     private Long id;
 
+    @Basic(optional = false)
     private String title;
 
     private String description;
 
+    @Lob
     private String instruction;
 
     private BigDecimal prepTime;

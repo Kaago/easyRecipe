@@ -23,6 +23,7 @@ public class TestDataCreator {
         Recipe recipe = recipeService.createRecipe("Zimt-Koriander-Bällchen in Pfeffer-Paprikasauce");
         recipe.setDescription("orientalisch angehaucht, mit tollem Zimtaroma");
         recipe.setInstruction("Das Hackfleisch mit Semmelbröseln, Zimt, Koriander, Paprikapulver und Meersalz vermengen und kleine Bällchen daraus formen.");
+        recipe.setServings(new BigDecimal(1));
         recipe.setPrepTime(new BigDecimal(20));
         recipe.setCookTime(new BigDecimal(60));
         recipe.setDifficulty(Difficulty.moderate);

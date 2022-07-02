@@ -17,10 +17,14 @@ public class Ingredient {
     @Getter
     private Long id;
 
+    @Basic(optional = false)
     private String name;
+
+    @Basic(optional = false)
     private BigDecimal amount;
 
     @Enumerated
+    @Basic(optional = false)
     private UnitOfMeasure uom;
 
     @ManyToOne(optional = false)

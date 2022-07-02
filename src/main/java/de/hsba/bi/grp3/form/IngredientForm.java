@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Getter
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 public class IngredientForm {
 
     @NotEmpty(message = "Please enter a Name!")
+    @Size(max = 255, message = "The text is limited to 255 characters!")
     private String name;
 
     @NotNull(message = "Please enter an amount!")

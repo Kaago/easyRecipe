@@ -17,8 +17,10 @@ public class RecipeForm {
     private Long id;
 
     @NotEmpty(message = "Please enter a Title!")
+    @Size(max = 255, message = "The text is limited to 255 characters!")
     private String title;
 
+    @Size(max = 255, message = "The text is limited to 255 characters!")
     private String description;
 
     @NotEmpty(message = "Please enter an Instruction!")
