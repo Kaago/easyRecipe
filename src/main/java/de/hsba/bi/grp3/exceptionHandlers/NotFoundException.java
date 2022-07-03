@@ -1,4 +1,4 @@
-package exceptionHandlers;
+package de.hsba.bi.grp3.exceptionHandlers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

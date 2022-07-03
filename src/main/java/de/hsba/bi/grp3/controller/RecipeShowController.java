@@ -2,22 +2,15 @@ package de.hsba.bi.grp3.controller;
 
 
 import de.hsba.bi.grp3.form.RecipeFormConverter;
-import de.hsba.bi.grp3.recipe.Difficulty;
-import de.hsba.bi.grp3.recipe.Ingredient;
 import de.hsba.bi.grp3.recipe.Recipe;
-import de.hsba.bi.grp3.recipe.UnitOfMeasure;
 import de.hsba.bi.grp3.service.RecipeService;
-import exceptionHandlers.NotFoundException;
+import de.hsba.bi.grp3.exceptionHandlers.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 @RequestMapping("/recipes/{id}")
