@@ -89,9 +89,9 @@ public class RecipeEditController {
         return "redirect:/recipes/" + id;
     }
 
-/*    @PostMapping
+    @PostMapping(path = "/deleteRecipe")
     public String delete(@PathVariable("id") Long id) {
-        recipeService.delete(id);
+        recipeService.deleteRecipe(id);
         return "redirect:/recipes/";
-    }*/
+    }
 }

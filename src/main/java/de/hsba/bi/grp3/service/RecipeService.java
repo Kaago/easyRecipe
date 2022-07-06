@@ -20,13 +20,6 @@ public class RecipeService {
         this.repository = repository;
     }
 
-    public Recipe createRecipe(String title){
-        Recipe recipe = new Recipe();
-        recipe.setTitle(title);
-
-        return repository.save(recipe);
-    }
-
     public void addIngredient(Recipe recipe, Ingredient ingredient) {
         ingredient.setRecipe(recipe);
         recipe.getIngredientEntries().add(ingredient);
