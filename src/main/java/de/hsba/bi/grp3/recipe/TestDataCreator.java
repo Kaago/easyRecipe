@@ -20,7 +20,7 @@ public class TestDataCreator {
     public void init() {
 
         // add example Journal for testing
-        Recipe recipe = recipeService.createRecipe("Zimt-Koriander-Bällchen in Pfeffer-Paprikasauce");
+        Recipe recipe = new Recipe("Zimt-Koriander-Bällchen in Pfeffer-Paprikasauce");
         recipe.setDescription("orientalisch angehaucht, mit tollem Zimtaroma");
         recipe.setInstruction("Das Hackfleisch mit Semmelbröseln, Zimt, Koriander, Paprikapulver und Meersalz vermengen und kleine Bällchen daraus formen.");
         recipe.setServings(new BigDecimal(1));
