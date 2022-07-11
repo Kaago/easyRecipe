@@ -1,10 +1,33 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/style :: head"></head>
 <body>
-<h1>Hello World</h1>
+<div class="container">
+    <nav th:insert="fragments/menu :: navbar"></nav>
+    <div class="my-4">
+        <h1>Login</h1>
+        <form method="post" th:action="@{/login}">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="inputUsername">Nutzername</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="inputUsername" name="username" type="text" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="inputPassword">Passwort</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="inputPassword" name="password" type="password" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary" type="submit">Anmelden</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
 </body>
 </html>

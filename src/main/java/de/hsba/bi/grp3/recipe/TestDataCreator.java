@@ -1,9 +1,15 @@
 package de.hsba.bi.grp3.recipe;
 
 import de.hsba.bi.grp3.service.RecipeService;
+import de.hsba.bi.grp3.service.UserService;
+import de.hsba.bi.grp3.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -15,6 +21,8 @@ import java.math.BigDecimal;
 public class TestDataCreator {
 
     private final RecipeService recipeService;
+
+
 
     @EventListener(ApplicationStartedEvent.class)
     public void init() {
@@ -31,4 +39,5 @@ public class TestDataCreator {
         recipeService.addIngredient(recipe, new Ingredient("Mehl", new BigDecimal(500), UnitOfMeasure.g));
         recipeService.saveRecipe(recipe);
     }
+
 }

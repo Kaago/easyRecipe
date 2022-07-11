@@ -40,6 +40,9 @@ public class Recipe {
 
     private boolean isPrivat;
 
+    @Getter
+    private BigDecimal byUser;
+
 
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
     @OrderBy

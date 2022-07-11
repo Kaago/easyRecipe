@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
     <a class="navbar-brand h1" th:href="${'/'}">easyRecipe</a>
@@ -12,8 +12,15 @@
      </div>
     <div class="navbar-nav">
         <a class="nav-item nav-link active" th:href="${'/login'}">Login</a>
-        <a class="nav-item nav-link active" href="#">Logout</a>
+        <form class="float-right" method="post" sec:authorize="authenticated" th:action="@{/logout}">
+            <button class="nav-item nav-link active btn btn-link" type="submit">
+                <span th:text="${#httpServletRequest.remoteUser}" />
+                abmelden
+            </button>
+
+        </form>
     </div>
 </nav>
 </body>
 </html>
+
