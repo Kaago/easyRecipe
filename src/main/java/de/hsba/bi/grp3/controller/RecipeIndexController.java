@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,8 +23,9 @@ public class RecipeIndexController {
 
 
     @GetMapping
-    public String showFilteredRecipes(Model model) {
-        model.addAttribute("recipes", recipeService.getAllRecipes());
+    public String showFilteredRecipes(Model model, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
+        model.addAttribute("recipes", recipeService.findRecipeBySearchText(search));
+        model.addAttribute("search", search);
         model.addAttribute("recipeForm", new RecipeForm());
         return "recipes/easyRecipeIndex";
     }

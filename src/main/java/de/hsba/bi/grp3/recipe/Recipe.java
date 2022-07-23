@@ -50,6 +50,10 @@ public class Recipe {
     public Recipe() {
     }
 
+    public Recipe(String title) {
+        this.title = title;
+    }
+
 
     public List<Ingredient> getIngredientEntries() {
         if (ingredients == null) {

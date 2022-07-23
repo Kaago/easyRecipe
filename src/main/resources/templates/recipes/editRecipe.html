@@ -98,6 +98,11 @@
           </form>
         </tr>
       </table>
+    <div class="form-group row">
+      <form th:action="${'/recipes/editRecipe/' + recipe.id + '/deleteRecipe/'}" method="post" class="form">
+        <button type="submit" class="btn btn-danger">Delete Recipe</button>
+      </form>
+    </div>
   </div>
 </div>
 </body>
