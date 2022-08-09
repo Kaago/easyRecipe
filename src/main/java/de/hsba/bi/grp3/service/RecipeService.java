@@ -4,9 +4,11 @@ package de.hsba.bi.grp3.service;
 import de.hsba.bi.grp3.recipe.Ingredient;
 import de.hsba.bi.grp3.recipe.Recipe;
 import de.hsba.bi.grp3.repository.RecipeRepository;
+import de.hsba.bi.grp3.user.User;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,9 +22,8 @@ public class RecipeService {
         this.repository = repository;
     }
 
-    public Recipe createRecipe(String title){
-        Recipe recipe = new Recipe();
-        recipe.setTitle(title);
+    public Recipe createRecipe(String title, User owner){
+        Recipe recipe = new Recipe(title, owner);
 
         return repository.save(recipe);
     }

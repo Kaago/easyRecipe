@@ -1,6 +1,7 @@
 package de.hsba.bi.grp3.controller;
 
 
+import de.hsba.bi.grp3.exceptionHandlers.NotFoundException;
 import de.hsba.bi.grp3.form.IngredientForm;
 import de.hsba.bi.grp3.form.RecipeForm;
 import de.hsba.bi.grp3.form.RecipeFormConverter;
@@ -31,7 +32,7 @@ public class RecipeEditController {
     public Recipe getRecipeById(@PathVariable("id") Long id) {
         Recipe recipe = recipeService.getRecipe(id);
         if (recipe == null) {
-            // throw new NotFoundException();
+             throw new NotFoundException();
         }
         return recipe;
     }
