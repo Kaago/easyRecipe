@@ -1,5 +1,6 @@
 package de.hsba.bi.grp3.recipe;
 
+import de.hsba.bi.grp3.user.User;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,6 +41,10 @@ public class Recipe {
 
     private boolean isPrivat;
 
+    @ManyToOne(optional = false)
+    @Getter
+    private User owner;
+
 
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
     @OrderBy
@@ -47,7 +52,14 @@ public class Recipe {
 
 
     // Constructor
-    public Recipe() {
+
+    public Recipe(){}
+    public Recipe( final User user) {
+        this.owner = user;
+    }
+    public Recipe( String title, User owner) {
+        this.title = title;
+        this.owner = owner;
     }
 
     public Recipe(String title) {
@@ -60,5 +72,9 @@ public class Recipe {
             ingredients = new ArrayList<>();
         }
         return ingredients;
+    }
+
+    public boolean isOwnedByCurrentUser() {
+        return this.owner != null && this.owner.getName().equals(User.getCurrentUsername());
     }
 }
