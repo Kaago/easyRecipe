@@ -1,6 +1,7 @@
 package de.hsba.bi.grp3.controller;
 
 
+import de.hsba.bi.grp3.exceptionHandlers.ForbiddenException;
 import de.hsba.bi.grp3.form.RecipeFormConverter;
 import de.hsba.bi.grp3.recipe.Recipe;
 import de.hsba.bi.grp3.service.RecipeService;
@@ -39,6 +40,9 @@ public class RecipeShowController {
     @PostMapping
     public String editSelectedRecipe(@PathVariable("id") Long id) {
         Recipe recipe = getRecipeById(id);
+        if(!recipe.isOwnedByCurrentUser()){
+            throw new ForbiddenException();
+        }
         return "redirect:/recipes/editRecipe/" + recipe.getId();
     }
 

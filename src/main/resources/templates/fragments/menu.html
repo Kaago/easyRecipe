@@ -7,8 +7,14 @@
          <a class="nav-link active" th:href="${'/recipes'}">Home</a>
      </div>
     <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="#">Login</a>
-        <a class="nav-item nav-link active" href="#">Logout</a>
+        <a class="nav-item nav-link active" th:href="${'/login'}">Login</a>
+        <form class="float-right" method="post" sec:authorize="authenticated" th:action="@{/logout}">
+            <button class="nav-item nav-link active btn btn-link" type="submit">
+                <span th:text="${#httpServletRequest.remoteUser}" />
+                abmelden
+            </button>
+
+        </form>
     </div>
 </nav>
 </body>
