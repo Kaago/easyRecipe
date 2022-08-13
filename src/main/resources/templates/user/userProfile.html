@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/style :: head"></head>
+<body>
+<div class="container">
+    <nav th:insert="fragments/menu :: navbar"></nav>
+    <div class="my-4">
+        <H1>Benutzer-Profil</H1>
+        <p th:text="${user.name}"> </p>
+    </div>
+</div>
+</body>
+</html>

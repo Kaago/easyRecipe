@@ -20,25 +20,14 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
    @Override
     protected void configure(final HttpSecurity http) throws Exception {
-          /*  http.authorizeRequests()
-                .antMatchers("/","/recipes/**").permitAll()
-                    .antMatchers("/recipes/editRecipe/**").authenticated()
-                    .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .permitAll();
-        */
+
        http.csrf().disable();
        http.authorizeRequests()
                .antMatchers("/").permitAll()
                .antMatchers(HttpMethod.GET, "/recipes/**").permitAll()
                //.antMatchers("/users/**").hasRole(User.ADMIN_ROLE)
-               .antMatchers(HttpMethod.POST, "/recipes").authenticated()
-               .antMatchers(HttpMethod.GET, "/recipes/**").permitAll()
+               .antMatchers(HttpMethod.GET, "/user").authenticated()
+               .antMatchers(HttpMethod.GET, "/user/**").authenticated()
                .anyRequest().authenticated()
                .and()
                .formLogin()
