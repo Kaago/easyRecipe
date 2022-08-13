@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@RequestMapping("/recipes/editRecipe/{id}")
+@RequestMapping("/editRecipe/{id}")
 @RequiredArgsConstructor
 public class RecipeEditController {
 

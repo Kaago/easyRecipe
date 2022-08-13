@@ -49,9 +49,8 @@
                     </tr>
                 </table>
         </div>
-        <form th:action="${'/recipes/' + recipe.id}" method="post" class="form-inline">
-            <button type="submit" class="btn btn-primary">Edit recipe</button>
-        </form>
+        <a th:href="${'/editRecipes/' + recipe.id}" th:if="${isUserOwner}" class="btn btn-primary">Edit Recipe</a>
+
     </div>
 </div>
 </body>
