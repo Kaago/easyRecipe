@@ -57,7 +57,7 @@ public class Recipe {
     public Recipe( final User user) {
         this.owner = user;
     }
-    public Recipe( String title, User owner) {
+    public Recipe(String title, User owner) {
         this.title = title;
         this.owner = owner;
     }

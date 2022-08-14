@@ -23,7 +23,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
        http.csrf().disable();
        http.authorizeRequests()
-               .antMatchers("/").permitAll()
+               .antMatchers("/", "/js/**", "/css/**").permitAll()
                .antMatchers(HttpMethod.GET, "/recipes/**").permitAll()
                //.antMatchers("/users/**").hasRole(User.ADMIN_ROLE)
                .antMatchers(HttpMethod.GET, "/user").authenticated()

@@ -24,8 +24,7 @@ public class RecipeService {
 
     public Recipe createRecipe(String title, User owner){
         Recipe recipe = new Recipe(title, owner);
-
-        return repository.save(recipe);
+        return saveRecipe(recipe);
     }
 
     public void addIngredient(Recipe recipe, Ingredient ingredient) {

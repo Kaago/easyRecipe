@@ -1,5 +1,6 @@
 package de.hsba.bi.grp3.recipe;
 
+import de.hsba.bi.grp3.service.CommentService;
 import de.hsba.bi.grp3.service.RecipeService;
 import de.hsba.bi.grp3.service.UserService;
 import de.hsba.bi.grp3.user.User;
@@ -22,7 +23,7 @@ public class TestDataCreator {
 
     private final RecipeService recipeService;
     private  final UserService userService;
-
+    private final CommentService commentService;
     private final  PasswordEncoder passwordEncoder;
 
     @EventListener(ApplicationStartedEvent.class)
@@ -46,6 +47,8 @@ public class TestDataCreator {
         recipeService.addIngredient(recipe, new Ingredient("Tomaten", new BigDecimal(400), UnitOfMeasure.g));
         recipeService.addIngredient(recipe, new Ingredient("Mehl", new BigDecimal(500), UnitOfMeasure.g));
         recipeService.saveRecipe(recipe);
+
+        commentService.createComment("Test", 2L, test, recipe);
     }
 
 }
