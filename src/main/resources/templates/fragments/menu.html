@@ -9,7 +9,7 @@
     <div class="navbar-nav">
         <a class="nav-item nav-link active" th:href="${'/login'}">Login</a>
         <a class="nav-item nav-link active" th:href="${'/user'}">Account</a>
-        <form class="float-right" method="post" sec:authorize="authenticated" th:action="@{/logout}">
+        <form  class="float-right" method="post" th:action="@{/logout}">
             <button class="nav-item nav-link active btn btn-link" type="submit">
                 <span th:text="${#httpServletRequest.remoteUser}" />
                 abmelden

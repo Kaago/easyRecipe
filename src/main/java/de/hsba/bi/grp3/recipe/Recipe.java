@@ -73,8 +73,4 @@ public class Recipe {
         }
         return ingredients;
     }
-
-    public boolean isOwnedByCurrentUser() {
-        return this.owner != null && this.owner.getName().equals(User.getCurrentUsername());
-    }
 }

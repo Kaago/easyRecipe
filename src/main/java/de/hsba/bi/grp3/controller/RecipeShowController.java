@@ -1,6 +1,7 @@
 package de.hsba.bi.grp3.controller;
 
 
+import com.sun.xml.bind.v2.TODO;
 import de.hsba.bi.grp3.comment.Comment;
 import de.hsba.bi.grp3.form.*;
 import de.hsba.bi.grp3.recipe.Recipe;
@@ -30,6 +31,8 @@ public class RecipeShowController {
     private final CommentService commentService;
     private final CommentFormConverter commentFormConverter;
 
+
+    //TODO refactor journal
     @ModelAttribute("journal")
     public Recipe getRecipeById(@PathVariable("id") Long id) {
         Recipe recipe = recipeService.getRecipe(id);

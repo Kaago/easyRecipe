@@ -14,6 +14,7 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository repository;
+
     public CommentService(CommentRepository repository) {
         this.repository = repository;
     }
@@ -27,10 +28,10 @@ public class CommentService {
         return repository.save(comment);
     }
 
-/*    public Collection<Comment> getAllUserComments() {
-        return repository.findAll();
+    public void updateComment(Comment comment) {
+       repository.save(comment);
     }
-    */
+
 
     public List<Comment> getAllRecipeComments(Recipe recipe) {
         List<Comment> test = repository.findRecipeComments(recipe);
@@ -39,4 +40,7 @@ public class CommentService {
 
     public Comment getComment(Long id) { return repository.findById(id).orElse(null); }
 
+    public List<Comment> findUserComments(User user){
+        return  repository.findUserComments(user);
+    }
 }

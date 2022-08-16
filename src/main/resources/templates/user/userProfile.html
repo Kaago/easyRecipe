@@ -6,7 +6,50 @@
     <nav th:insert="fragments/menu :: navbar"></nav>
     <div class="my-4">
         <H1>Benutzer-Profil</H1>
-        <p th:text="${user.name}"> </p>
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>Username:</td>
+                <td th:text="${user.name}"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <a th:href="${'/user/editUser'}" class="btn btn-primary">Edit Profile</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <H1>Rezepte</H1>
+
+        <table class="table">
+            <tbody>
+            <tr th:each="recipe : ${userRecipes}">
+                <td th:text="${recipe.getTitle()}"></td>
+                <td style="text-align: right">
+                    <a th:href="${'/editRecipe/' + recipe.getId()}" class="btn btn-primary">Edit Recipe</a>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+        <H1>Kommentare</H1>
+
+        <table class="table">
+            <tbody>
+            <tr th:each="comment : ${userComments}">
+                <td th:text="${comment.getRecipe().getTitle()}"></td>
+                <td th:text="${comment.getTextContent()}"></td>
+                <td style="text-align: right">
+                    <a th:href="${'/user/editComment/' + comment.getId()}" class="btn btn-primary">Edit Comment</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
     </div>
 </div>
 </body>

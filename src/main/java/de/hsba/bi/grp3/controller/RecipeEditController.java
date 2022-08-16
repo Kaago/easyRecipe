@@ -44,7 +44,7 @@ public class RecipeEditController {
     }
 
 
-    @GetMapping
+   @GetMapping
     public String showEditableRecipe(@PathVariable("id") Long id, Model model) {
         model.addAttribute("recipeForm", formConverter.toForm(getRecipeById(id)));
         model.addAttribute("ingredientForm", new IngredientForm());

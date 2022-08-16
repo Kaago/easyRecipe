@@ -57,6 +57,9 @@ public class RecipeService {
     public List<Recipe> findRecipeBySearchText(String search) {
         return search.isBlank() ? repository.findAll() : repository.findRecipeBySearchText(search.trim());
     }
+    public List<Recipe> findRecipeByUser(User user) {
+        return repository.findRecipeByUser(user);
+    }
 
     public void deleteRecipe(Long id) {
         repository.deleteById(id);
