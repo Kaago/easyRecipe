@@ -5,6 +5,7 @@ import de.hsba.bi.grp3.recipe.Recipe;
 import de.hsba.bi.grp3.repository.CommentRepository;
 import de.hsba.bi.grp3.repository.UserRepository;
 import de.hsba.bi.grp3.user.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -38,6 +39,16 @@ public class UserService {
             return Objects.equals(owner.getId(), this.findCurrentUser().getId());
         }
         return false;
+    }
+
+    public void changePassword(String newPassword){
+
+       User user = this.findCurrentUser();
+       if (user != null && newPassword != null){
+
+           user.setPassword(newPassword);
+       }
+
     }
 
 
