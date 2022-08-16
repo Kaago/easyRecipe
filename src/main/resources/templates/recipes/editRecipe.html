@@ -8,7 +8,7 @@
     <div class="form-group row">
       <p class="h1">Create a Recipe</p>
     </div>
-    <form th:action="${'/recipes/editRecipe/' + recipe.id}" th:object="${recipeForm}" method="post">
+    <form th:action="${'/editRecipe/' + recipe.id}" th:object="${recipeForm}" method="post">
       <div class="form-group row">
         <label class="col-form-label col-form-label-sm col-sm-2" for="title">Name of Recipe:</label>
         <div class="col-sm-10">
