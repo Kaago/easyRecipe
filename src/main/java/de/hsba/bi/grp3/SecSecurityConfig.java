@@ -24,8 +24,10 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
        http.csrf().disable();
        http.authorizeRequests()
                .antMatchers("/", "/js/**", "/css/**").permitAll()
-               .antMatchers(HttpMethod.GET, "/recipes/**").permitAll()
-               //.antMatchers("/users/**").hasRole(User.ADMIN_ROLE)
+               .antMatchers(HttpMethod.GET, "/easy-recipe/**").permitAll()
+               .antMatchers(HttpMethod.GET, "/recipe/**").permitAll()
+               .antMatchers(HttpMethod.GET, "/recipe/edit/**").authenticated()
+               .antMatchers(HttpMethod.POST, "/recipe/edit/**").authenticated()
                .antMatchers(HttpMethod.GET, "/user").authenticated()
                .antMatchers(HttpMethod.GET, "/user/**").authenticated()
                .anyRequest().authenticated()

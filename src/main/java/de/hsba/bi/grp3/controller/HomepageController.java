@@ -14,16 +14,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 
 @Controller
-@RequestMapping("/recipes")
+@RequestMapping("/easy-recipe")
 @RequiredArgsConstructor
-public class RecipeIndexController {
+public class HomepageController {
 
     private final RecipeService recipeService;
     private final UserService userService;
-    private final RecipeFormConverter formConverter;
+    private final RecipeFormConverter recipeFormConverter;
+
 
 
     @GetMapping
@@ -31,18 +31,18 @@ public class RecipeIndexController {
         model.addAttribute("recipes", recipeService.findRecipeBySearchText(search));
         model.addAttribute("search", search);
         model.addAttribute("recipeForm", new RecipeForm());
-        return "recipes/easyRecipeIndex";
+        return "easyRecipeIndex";
     }
 
     @PostMapping
-    public String createRecipe(String name, @ModelAttribute("recipeForm") @Valid RecipeCreateForm recipeCreateForm, BindingResult recipeBinding) {
+    public String createRecipe(@ModelAttribute("recipeForm") @Valid RecipeCreateForm recipeCreateForm, BindingResult recipeBinding) {
         if (recipeBinding.hasErrors()) {
-            return "recipes/easyRecipeIndex";
+            return "easyRecipeIndex";
         }
 
         User currentUser = userService.findCurrentUser();
-        Recipe recipe = recipeService.saveRecipe(formConverter.createRecipe(new Recipe(currentUser), recipeCreateForm));
-        // Recipe recipe = recipeService.createRecipe(name);
-        return "redirect:/recipes/editRecipe/" + recipe.getId();
+        Recipe recipe = recipeService.saveRecipe(recipeFormConverter.createRecipe(new Recipe(currentUser), recipeCreateForm));
+        return "redirect:/recipe/edit/" + recipe.getId();
     }
+
 }

@@ -1,6 +1,8 @@
 package de.hsba.bi.grp3.service;
 
 
+import de.hsba.bi.grp3.form.RecipeForm;
+import de.hsba.bi.grp3.form.RecipeFormConverter;
 import de.hsba.bi.grp3.recipe.Ingredient;
 import de.hsba.bi.grp3.recipe.Recipe;
 import de.hsba.bi.grp3.repository.RecipeRepository;
@@ -16,13 +18,15 @@ import java.util.List;
 @Transactional
 public class RecipeService {
 
+
+
     private final RecipeRepository repository;
 
     public RecipeService(RecipeRepository repository) {
         this.repository = repository;
     }
 
-    public Recipe createRecipe(String title, User owner){
+    public Recipe createRecipe(String title, User owner) {
         Recipe recipe = new Recipe(title, owner);
         return saveRecipe(recipe);
     }
@@ -40,15 +44,13 @@ public class RecipeService {
         saveRecipe(recipe);
     }
 
-
-
     public Recipe saveRecipe(Recipe recipe) {
         return repository.save(recipe);
     }
 
-
-    public Recipe getRecipe(Long id) { return repository.findById(id).orElse(null); }
-
+    public Recipe getRecipe(Long id){
+        return repository.findById(id).orElse(null);
+    }
 
     public Collection<Recipe> getAllRecipes() {
         return repository.findAll();
@@ -57,6 +59,7 @@ public class RecipeService {
     public List<Recipe> findRecipeBySearchText(String search) {
         return search.isBlank() ? repository.findAll() : repository.findRecipeBySearchText(search.trim());
     }
+
     public List<Recipe> findRecipeByUser(User user) {
         return repository.findRecipeByUser(user);
     }
@@ -64,6 +67,5 @@ public class RecipeService {
     public void deleteRecipe(Long id) {
         repository.deleteById(id);
     }
-
 
 }

@@ -23,7 +23,7 @@
 
         <div class="d-flex">
             <div class="container">
-                <form th:action="${'/user/editComment/' + comment.getId()}" th:object="${commentForm}" method="post" class="mt-5">
+                <form th:action="${'/user/edit-comment/' + comment.getId()}" th:object="${commentForm}" method="post" class="mt-5">
                     <input value="0" type="hidden" class="rating" data-show-clear="false" data-show-caption="true" data-size="sm" th:field="*{rating}">
                     <div class="d-flex flex-row pb-3">
                         <p class="text-danger" th:if="${#fields.hasErrors('rating')}">Please give a rating!</p>

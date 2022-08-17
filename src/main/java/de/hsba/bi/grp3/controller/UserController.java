@@ -24,11 +24,8 @@ public class UserController {
 
     private final UserService userService;
     private final RecipeService recipeService;
-
     private final CommentService commentService;
-
     private final CommentFormConverter commentFormConverter;
-
     private final PasswordEncoder passwordEncoder;
 
 
@@ -43,47 +40,36 @@ public class UserController {
 
         return "user/userProfile";
     }
-    @GetMapping("/editUser")
+
+    @GetMapping("/edit-user")
     public String editProfile(Model model) {
 
         model.addAttribute("changePasswordForm", new ChangePasswordForm());
         return "user/editUserProfile";
     }
 
-    @PostMapping("/editUser")
-    public String changePassword(@Valid ChangePasswordForm changePasswordForm, Model model){
-
-      String encodedPassword =  passwordEncoder.encode(changePasswordForm.getNewPassword());
-
-       userService.changePassword(encodedPassword);
-
-        User currentUser = userService.findCurrentUser();
-
-        model.addAttribute("user",currentUser);
-        model.addAttribute("userRecipes", recipeService.findRecipeByUser(currentUser));
-        model.addAttribute("userComments", commentService.findUserComments(currentUser));
-
-        return "user/userProfile";
-    }
-
-
-    @GetMapping("/editComment/{id}")
+    @GetMapping("/edit-comment/{id}")
     public String editComment(@PathVariable("id") Long id, Model model){
         model.addAttribute("commentForm", commentFormConverter.toForm(commentService.getComment(id)));
         model.addAttribute("comment", commentService.getComment(id));
         return "user/editUserComment";
     }
-    @PostMapping("/editComment/{id}")
+
+    @PostMapping("/edit-user")
+    public String changePassword(@Valid ChangePasswordForm changePasswordForm, Model model){
+
+        String encodedPassword =  passwordEncoder.encode(changePasswordForm.getNewPassword());
+
+        userService.changePassword(encodedPassword);
+
+        return index(model);
+    }
+
+    @PostMapping("/edit-comment/{id}")
     public String updateComment(@PathVariable("id") Long id, @Valid CommentForm commentForm, Model model){
         commentService.updateComment(commentFormConverter.update(commentService.getComment(id),commentForm));
 
-        User currentUser = userService.findCurrentUser();
-
-        model.addAttribute("user",currentUser);
-        model.addAttribute("userRecipes", recipeService.findRecipeByUser(currentUser));
-        model.addAttribute("userComments", commentService.findUserComments(currentUser));
-
-        return "user/userProfile";
+        return index(model);
     }
 
 }

@@ -8,7 +8,7 @@
     <div class="form-group row">
       <p class="h1">Create a Recipe</p>
     </div>
-    <form th:action="${'/editRecipe/' + recipe.id}" th:object="${recipeForm}" method="post">
+    <form th:action="${'/recipe/edit/' + recipe.id}" th:object="${recipeForm}" method="post">
       <div class="form-group row">
         <label class="col-form-label col-form-label-sm col-sm-2" for="title">Name of Recipe:</label>
         <div class="col-sm-10">
@@ -85,10 +85,10 @@
           <td th:text="${ingredient.amount}" name="amount" ></td>
           <td th:text="${ingredient.uom}" name="uom" ></td>
           <td th:text="${ingredient.name}" name="name" ></td>
-          <th><a class="btn btn-primary btn-sm" th:href="${'/recipes/editRecipe/' + recipe.id + '/deleteIngredient/' + ingredientStat.index}">Delete Ingredient</a></th>
+          <th><a class="btn btn-primary btn-sm" th:href="${'/recipe/edit/' + recipe.id + '/deleteIngredient/' + ingredientStat.index}">Delete Ingredient</a></th>
         </tr>
         <tr>
-          <form th:action="${'/recipes/editRecipe/' + recipe.id + '/addIngredient/'}" th:object="${ingredientForm}" method="post">
+          <form th:action="${'/recipe/edit/' + recipe.id + '/add-ingredient/'}" th:object="${ingredientForm}" method="post">
             <th><input class="form-control form-control-sm" type="number" id="amount" th:field="*{amount}" th:classappend="${#fields.hasErrors('amount') ? 'is-invalid' : ''}"><span class="text-danger" th:errors="*{amount}" /></th>
             <th><select class="form-control form-control-sm" id="uom" th:field="*{uom}">
               <option th:each="unitOfMeasure : ${unitOfMeasureList}" th:text="${unitOfMeasure}" th:value="${unitOfMeasure}"></option>
@@ -99,7 +99,7 @@
         </tr>
       </table>
     <div class="form-group row">
-      <form th:action="${'/recipes/editRecipe/' + recipe.id + '/deleteRecipe/'}" method="post" class="form">
+      <form th:action="${'/recipe/edit/' + recipe.id + '/deleteRecipe/'}" method="post" class="form">
         <button type="submit" class="btn btn-danger">Delete Recipe</button>
       </form>
     </div>

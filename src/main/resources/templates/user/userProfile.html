@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <a th:href="${'/user/editUser'}" class="btn btn-primary">Passwort ändern</a>
+                    <a th:href="${'/user/edit-user'}" class="btn btn-primary">Passwort ändern</a>
                 </td>
             </tr>
             </tbody>
@@ -26,7 +26,7 @@
             <tr th:each="recipe : ${userRecipes}">
                 <td th:text="${recipe.getTitle()}"></td>
                 <td style="text-align: right">
-                    <a th:href="${'/editRecipe/' + recipe.getId()}" class="btn btn-primary">Edit Recipe</a>
+                    <a th:href="${'/recipe/edit/' + recipe.getId()}" class="btn btn-primary">Edit Recipe</a>
                 </td>
 
             </tr>
@@ -42,7 +42,7 @@
                 <td th:text="${comment.getRecipe().getTitle()}"></td>
                 <td th:text="${comment.getTextContent()}"></td>
                 <td style="text-align: right">
-                    <a th:href="${'/user/editComment/' + comment.getId()}" class="btn btn-primary">Edit Comment</a>
+                    <a th:href="${'/user/edit-comment/' + comment.getId()}" class="btn btn-primary">Edit Comment</a>
                 </td>
             </tr>
 

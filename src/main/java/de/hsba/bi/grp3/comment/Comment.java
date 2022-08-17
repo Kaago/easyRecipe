@@ -27,7 +27,7 @@ public class Comment {
     @ManyToOne(optional = false)
     private User owner;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade=CascadeType.ALL,optional = false)
     private Recipe recipe;
 
     public Comment(){}
