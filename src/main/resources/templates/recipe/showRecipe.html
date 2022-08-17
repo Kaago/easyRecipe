@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<header>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+    <title>easyRecipe</title>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.1.2/css/star-rating.min.css">
     <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
@@ -8,71 +9,85 @@
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
-
-    <link th:href="@{/css/rating.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/comment.css}" rel="stylesheet" type="text/css">
-</header>
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
+</head>
 <body>
-<div class="container">
-    <nav th:insert="fragments/menu :: navbar"></nav>
-    <div class="my-4">
-        <div class="d-flex flex-row">
-            <div class="p-2 h1" th:text="${recipe.title}"></div>
-        </div>
-        <div class="d-flex flex-row">
-            <div class="p-2" th:text="${recipe.description}"></div>
-        </div>
-        <div class="d-flex flex-row">
-            <div class="p-2">Instruction:</div>
-            <div class="p-2 overflow-auto" style="max-height:300px" th:text="${recipe.instruction}"></div>
-        </div>
-        <div class="d-flex flex-row">
-            <table class="table">
-                <tr>
-                    <th>Difficulty:</th>
-                    <th th:text="${recipe.difficulty}"></th>
-                </tr>
-                <tr>
-                    <th>Preparation Time:</th>
-                    <th th:text="${recipe.prepTime}"></th>
-                </tr>
-                <tr>
-                    <th>Cooking Time:</th>
-                    <th th:text="${recipe.cookTime}"></th>
-                </tr>
-                <tr>
-                    <th>Servings:</th>
-                    <th th:text="${recipe.servings}"></th>
-                </tr>
-                <tr>
-                    <th>Privat Recipe:</th>
-                    <th th:text="${recipe.isPrivat}"></th>
-                </tr>
-            </table>
-        </div>
-        <div class="d-flex flex-row">
-            <table th:if="${recipe.ingredientEntries != null and recipe != null}" class="table">
-                <tr>
-                    <th>Amount</th>
-                    <th>Unit of Measurement</th>
-                    <th>Name of Ingredient</th>
-                </tr>
-                <tr th:each="ingredient : ${recipe.ingredientEntries}">
-                    <td th:text="${ingredient.amount}"></td>
-                    <td th:text="${ingredient.uom}"></td>
-                    <td th:text="${ingredient.name}"></td>
-                </tr>
-            </table>
-        </div>
-        <a th:href="${'/recipe/edit/' + recipe.id}" th:if="${isUserOwner}" class="btn btn-primary">Edit Recipe</a>
-    </div>
-    <div class="h4">Ratings:</div>
+<header th:insert="fragments/menu :: navbar"></header>
+<div class="container-fluid">
 
-    <div class="d-flex">
-        <div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-7">
+            <div class="row pt-4">
+                <div class="col h1" th:text="${recipe.title}"></div>
+            </div>
+            <div class="row">
+                <div class="col" th:text="${recipe.description}"></div>
+            </div>
+            <div class="row pt-4">
+                    <div class="col h5">Instruction:</div>
+            </div>
+            <div class="row">
+                <div class="col overflow-auto" style="max-height:300px" th:text="${recipe.instruction}"></div>
+            </div>
+            <div class="row pt-4">
+                <div class="col h5">Infos:</div>
+                <div class="col h5">Ingredients:</div>
+            </div>
+            <div class="row pt-4">
+                <div class="col">
+                    <table class="table table-hover">
+                        <tr>
+                            <th class="th-normal">Difficulty:</th>
+                            <th class="th-bold" th:text="${recipe.difficulty}"></th>
+                        </tr>
+                        <tr>
+                            <th class="th-normal">Preparation Time:</th>
+                            <th class="th-bold"  th:text="${recipe.prepTime}"></th>
+                        </tr>
+                        <tr>
+                            <th class="th-normal">Cooking Time:</th>
+                            <th class="th-bold"  th:text="${recipe.cookTime}"></th>
+                        </tr>
+                        <tr>
+                            <th class="th-normal">Privat Recipe:</th>
+                            <th class="th-bold"  th:text="${recipe.isPrivat}"></th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col" th:if="${recipe.ingredientEntries != null and recipe != null}">
+                    <div class="row pb-1 pl-3" th:each="ingredient : ${recipe.ingredientEntries}">
+                        <div class="card" th:text="${ingredient.amount + ' ' + ingredient.uom + ' ' + ingredient.name}"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col"></div>
+        <div class="col-7">
+            <a th:href="${'/recipe/edit/' + recipe.id}" th:if="${isUserOwner}" class="btn btn-primary">Edit Recipe</a>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col"></div>
+        <div class="col-7">
+            <div class="row pt-4">
+                <div class="col h5">Comments:</div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+    <div class="row pt-2">
+        <div class="col"></div>
+        <div class="col-7">
             <form th:action="${'/recipe/' + recipe.id + '/add-comment/'}" th:object="${commentForm}"  method="post" class="mt-5">
                 <input value="0" type="hidden" class="rating" data-show-clear="false" data-show-caption="true" data-size="sm" th:field="*{rating}">
                 <div class="d-flex flex-row pb-3">
@@ -88,26 +103,28 @@
                 <hr>
             </form>
         </div>
+        <div class="col"></div>
     </div>
-    <div class="d-flex justify-content-center p2">
-        <div class="col-md-8 col-sm-12">
-            <div th:if="${recipeComments.isEmpty() == false}">
-                <div th:each="comment : ${recipeComments}">
-                    <div class="d-flex">
-                        <div class="align-self-center pr-4">
-                            <p class="font-weight-bold" th:text="'@'+${comment.getOwner().name}"></p>
-                        </div>
-                        <div class="align-self-center">
-                            <input th:value="${comment.rating}" class="rating displayOnly" readonly="true" disabled="true" data-show-clear="false" data-show-caption="true" data-size="sm">
-                        </div>
-                    </div>
-                    <div class="d-flex pb-1">
-                        <div th:text="${comment.textContent}"></div>
-                    </div>
-                    <hr>
-                </div>
+    <div class="row pt-2">
+        <div class="col"></div>
+        <div class="col-5">
+            <div class="pt-4" th:if="${recipeComments.isEmpty() == false}">
+                <table class="table">
+                    <tr th:each="comment : ${recipeComments}">
+                        <th style="width: 25%">
+                                <input th:value="${comment.rating}" class="rating displayOnly" readonly="true" disabled="true" data-show-clear="false" data-show-caption="true" data-size="xs">
+                        </th>
+                        <th>
+                            <div class="font-weight-bold" style="width: 25%" th:text="'@'+${comment.getOwner().name}"></div>
+                        </th>
+                        <th class="th-normal">
+                            <div th:text="${comment.textContent}"></div>
+                        </th>
+                    </tr>
+                </table>
             </div>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 </body>

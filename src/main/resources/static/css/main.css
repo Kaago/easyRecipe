@@ -1,0 +1,13 @@
+html { overflow-y: scroll; }
+
+.th-normal {
+    font-weight: normal;
+}
+
+.th-bold {
+    font-weight: bold;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}

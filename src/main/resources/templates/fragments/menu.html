@@ -1,22 +1,36 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="de">
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
-    <a class="navbar-brand h1" th:href="${'/'}">easyRecipe</a>
-     <div class="collapse navbar-collapse navbar-nav" id="navbarSupportedContent">
-         <a class="nav-link active" th:href="${'/'}">Home</a>
-     </div>
-    <div class="navbar-nav">
-        <a class="nav-item nav-link active" th:href="${'/login'}">Login</a>
-        <a class="nav-item nav-link active" th:href="${'/user'}">Account</a>
-        <form  class="float-right" method="post" th:action="@{/logout}">
-            <button class="nav-item nav-link active btn btn-link" type="submit">
-                <span th:text="${#httpServletRequest.remoteUser}" />
-                abmelden
-            </button>
-
-        </form>
+<div class="row" th:fragment="navbar">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="row d-flex flex-column">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand h1" th:href="${'/'}">easyRecipe</a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="${'/'}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="${'/user'}">Account</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                English
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <form  class="float-right" method="post" th:action="@{/logout}">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <span th:text="'@'+${#httpServletRequest.remoteUser}" /> abmelden</button>
+                </form>
+                <a class="btn btn-outline-success my-2 my-sm-0" th:href="${'/login'}">Login</a>
+            </nav>
+        </div>
     </div>
-</nav>
-</body>
-</html>
+    <div class="col-2"></div>
+</div>
