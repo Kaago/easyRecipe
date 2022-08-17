@@ -17,7 +17,7 @@ public class RecipeFormConverter {
         recipeForm.setDifficulty(recipe.getDifficulty());
         recipeForm.setPrepTime(recipe.getPrepTime());
         recipeForm.setCookTime(recipe.getCookTime());
-        // recipeForm.setPrivat(recipe.isPrivat());
+        recipeForm.setIsPrivat(recipe.getIsPrivat());
         return recipeForm;
     }
 
@@ -29,11 +29,13 @@ public class RecipeFormConverter {
         recipe.setDifficulty(recipeForm.getDifficulty());
         recipe.setPrepTime(recipeForm.getPrepTime());
         recipe.setCookTime(recipeForm.getCookTime());
+        recipe.setIsPrivat(recipeForm.getIsPrivat());
         return recipe;
     }
 
     public Recipe createRecipe(Recipe recipe, RecipeCreateForm recipeCreateForm){
         recipe.setTitle(recipeCreateForm.getTitle());
+        recipe.setIsPrivat(true);
         return recipe;
     }
 

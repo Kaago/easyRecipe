@@ -39,5 +39,5 @@ public class RecipeForm {
     @Enumerated
     private Difficulty difficulty;
 
-    private boolean isPrivat;
+    private Boolean isPrivat;
 }

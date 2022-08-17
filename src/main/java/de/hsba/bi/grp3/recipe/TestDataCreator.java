@@ -42,6 +42,7 @@ public class TestDataCreator {
         recipe.setServings(new BigDecimal(1));
         recipe.setPrepTime(new BigDecimal(20));
         recipe.setCookTime(new BigDecimal(60));
+        recipe.setIsPrivat(false);
         recipe.setDifficulty(Difficulty.moderate);
         recipe.setOwner(test);
         recipeService.addIngredient(recipe, new Ingredient("Tomaten", new BigDecimal(400), UnitOfMeasure.g));

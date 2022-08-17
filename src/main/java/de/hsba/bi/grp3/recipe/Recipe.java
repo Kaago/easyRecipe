@@ -39,7 +39,7 @@ public class Recipe {
     @Enumerated
     private Difficulty difficulty;
 
-    private boolean isPrivat;
+    private Boolean isPrivat;
 
     @ManyToOne(optional = false)
     @Getter
