@@ -35,7 +35,7 @@
   - nachträglich die Bewertung und den Kommentar bearbeiten
   - das User-Passwort ändern 
   - sich abmelden
-  - ihren persönlichen Bereich aufrufen, wo eine Übersicht von ihren eigenen Rezepten und eigenen Kommentaren zu finden ist.
+  - ihren persönlichen Bereich aufrufen, wo eine Übersicht von ihren eigenen Rezepten und eigenen Kommentaren zu finden ist
 
 ## 6 Zugangsdaten
 <table>
