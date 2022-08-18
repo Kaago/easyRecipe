@@ -21,7 +21,7 @@
 
 ## 5 Berechtigungskonzept
 - Zugangsdaten sind zu finden unter: `6 Zugangsdaten`
-`Nicht eingeloggte Nutzer` können:
+- `Nicht eingeloggte Nutzer` können:
   - öffentliche Rezepte suchen & anschauen
   - die Mengen der benötigten Zutaten für ein Rezept auf eine selbst gewählte Personenanzahl rechnen lassen 
   - sich einloggen
