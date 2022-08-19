@@ -3,53 +3,60 @@
 <head th:replace="fragments/style :: head"></head>
 <body>
 <header th:insert="fragments/menu :: navbar"></header>
-<div class="container">
-    <div class="my-4">
-        <H1>Benutzer-Profil</H1>
-        <table class="table">
-            <tbody>
-            <tr>
-                <td>Username:</td>
-                <td th:text="${user.name}"></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <a th:href="${'/user/edit-user'}" class="btn btn-primary">Passwort ändern</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <H1>Rezepte</H1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-7">
+            <div class="row pt-4">
+                <div class="col h1">Benutzer-Profil</div>
+            </div>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td>Username:</td>
+                    <td th:text="${user.name}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a th:href="${'/user/edit-user'}" class="btn btn-primary">Passwort ändern</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-        <table class="table">
-            <tbody>
-            <tr th:each="recipe : ${userRecipes}">
-                <td th:text="${recipe.getTitle()}"></td>
-                <td style="text-align: right">
-                    <a th:href="${'/recipe/edit/' + recipe.getId()}" class="btn btn-primary">Edit Recipe</a>
-                </td>
+            <div class="row pt-4">
+                <div class="col h1">Rezepte</div>
+            </div>
+            <table class="table">
+                <tbody>
+                <tr th:each="recipe : ${userRecipes}">
+                    <td th:text="${recipe.getTitle()}"></td>
+                    <td style="text-align: right">
+                        <a th:href="${'/recipe/edit/' + recipe.getId()}" class="btn btn-primary">Edit Recipe</a>
+                    </td>
 
-            </tr>
+                </tr>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
-        <H1>Kommentare</H1>
+            <div class="row pt-4">
+                <div class="col h1">Kommentare</div>
+            </div>
+            <table class="table">
+                <tbody>
+                <tr th:each="comment : ${userComments}">
+                    <td th:text="${comment.getRecipe().getTitle()}"></td>
+                    <td th:text="${comment.getTextContent()}"></td>
+                    <td style="text-align: right">
+                        <a th:href="${'/user/edit-comment/' + comment.getId()}" class="btn btn-primary">Edit Comment</a>
+                    </td>
+                </tr>
 
-        <table class="table">
-            <tbody>
-            <tr th:each="comment : ${userComments}">
-                <td th:text="${comment.getRecipe().getTitle()}"></td>
-                <td th:text="${comment.getTextContent()}"></td>
-                <td style="text-align: right">
-                    <a th:href="${'/user/edit-comment/' + comment.getId()}" class="btn btn-primary">Edit Comment</a>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-
-
+                </tbody>
+            </table>
+        </div>
+        <div class="col"></div>
     </div>
 </div>
 </body>

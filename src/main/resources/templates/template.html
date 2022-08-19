@@ -2,12 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="de">
 <head th:replace="fragments/style :: head"></head>
 <body>
-<div class="container">
-    <nav th:insert="fragments/menu :: navbar"></nav>
-    <div class="my-4">
-        <H1>Header</H1>
+<header th:insert="fragments/menu :: navbar"></header>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-7"></div>
+        <div class="col"></div>
     </div>
 </div>
+
 </body>
 </html>
