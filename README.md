@@ -17,7 +17,7 @@
 
 ## 4 Anwendung öffnen
 - Im browser `localhost:8080/` öffnen 
-- Link: *[`easyRecipe`](https://localhost:8080/)*
+- Link: *[`easyRecipe`](localhost:8080/)*
 
 ## 5 Berechtigungskonzept
 - Zugangsdaten sind zu finden unter: `6 Zugangsdaten`
