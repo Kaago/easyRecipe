@@ -1,8 +1,8 @@
 # Technisches Benutzerhandbuch - easyRecipe
 
 ## 1 technische Voraussetzungen
-- Intellij installieren
-- Java 11
+- Intellij
+- Java 11 / Java 17
 
 ## 2 Project Set-Up
 - Projekt-Files herunterladen bzw. in einen beliebigen Ordner das Git-Repo clonen
@@ -26,7 +26,7 @@
   - die Mengen der benötigten Zutaten für ein Rezept auf eine selbst gewählte Personenanzahl rechnen lassen 
   - sich einloggen
 
-- `eingeloggte Nutzer` können 
+- `eingeloggte Nutzer` können: 
   - alles was nicht eingeloggte Nutzer können (außer sich einloggen)
   - Rezepte erstellen
   - Rezepte favorisieren
