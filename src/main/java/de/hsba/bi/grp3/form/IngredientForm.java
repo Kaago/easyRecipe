@@ -20,7 +20,7 @@ public class IngredientForm {
     private String name;
 
     @NotNull(message = "Please enter an amount!")
-    private BigDecimal amount;
+    private Integer amount;
 
     @Enumerated
     private UnitOfMeasure uom;

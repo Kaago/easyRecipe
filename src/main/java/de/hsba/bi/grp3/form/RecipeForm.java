@@ -28,13 +28,15 @@ public class RecipeForm {
 
     @NotNull(message = "Please enter an amount!")
     @Min(value = 0, message = "no negative values")
-    private BigDecimal prepTime;
+    private Integer prepTime;
 
     @NotNull(message = "Please enter an amount!")
-    private BigDecimal cookTime;
+    @Min(value = 0, message = "no negative values")
+    private Integer cookTime;
 
     @NotNull(message = "Please enter an amount!")
-    private BigDecimal servings;
+    @Min(value = 0, message = "no negative values")
+    private Integer servings;
 
     @Enumerated
     private Difficulty difficulty;

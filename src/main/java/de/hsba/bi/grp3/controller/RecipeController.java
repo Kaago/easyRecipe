@@ -18,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,12 +44,20 @@ public class RecipeController {
     }
 
     @GetMapping("/{id}")
-    public String showSelectedRecipe(@PathVariable("id") Long id, Model model) {
+    public String showSelectedRecipe(@PathVariable("id") Long id, Model model, @RequestParam(value = "amountServingsEntry", required = false, defaultValue = "") Integer amountServingsEntry, @ModelAttribute("AmountServingsForm") AmountServingsForm amountServingsForm) {
         Recipe recipe = getRecipeById(id);
         model.addAttribute("recipe", recipe);
         model.addAttribute("isUserOwner", userService.isUserOwner(recipe.getOwner()));
         model.addAttribute("commentForm", new CommentForm());
         model.addAttribute("recipeComments", commentService.getAllRecipeComments(recipe));
+        if (amountServingsEntry == null || amountServingsEntry <= 0) {
+            model.addAttribute("amountServingsForm", new AmountServingsForm(recipe.getServings()));
+            amountServingsEntry = recipe.getServings();
+        }
+        else {
+            model.addAttribute("amountServingsForm", new AmountServingsForm(amountServingsEntry));
+        }
+        model.addAttribute("servingsFactor", recipeService.getServingsFactor(amountServingsEntry, recipe.getServings()));
         return "recipe/showRecipe";
     }
 
@@ -73,7 +83,7 @@ public class RecipeController {
 
     @GetMapping("/edit/{id}")
     public String showEditableRecipe(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("recipeForm", recipeFormConverter.toForm(getRecipeById(id)));
+        model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(getRecipeById(id)));
         model.addAttribute("ingredientForm", new IngredientForm());
         model.addAttribute("recipe", recipeService.getRecipe(id));
         List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
@@ -93,14 +103,14 @@ public class RecipeController {
     public String addIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredientForm") @Valid IngredientForm ingredientForm, BindingResult ingredientBinding, Model model) {
         Recipe recipe = getRecipeById(id);
         if (ingredientBinding.hasErrors()) {
-            model.addAttribute("recipeForm", recipeFormConverter.toForm(recipe));
+            model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipe));
             List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
             model.addAttribute("unitOfMeasureList", unitOfMeasureList);
             List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
             model.addAttribute("difficultyList", difficultyList);
             return "recipe/editRecipe";
         }
-        recipeService.addIngredient(recipe, recipeFormConverter.update(new Ingredient(), ingredientForm));
+        recipeService.addIngredient(recipe, recipeFormConverter.updateIngredient(new Ingredient(), ingredientForm));
         return "redirect:/recipe/edit/" + id;
     }
     @PostMapping("/edit/{id}")
@@ -114,7 +124,7 @@ public class RecipeController {
             return "recipe/editRecipe";
         }
 
-        recipeService.saveRecipe(recipeFormConverter.update(getRecipeById(id),recipeForm));
+        recipeService.saveRecipe(recipeFormConverter.updateRecipe(getRecipeById(id),recipeForm));
         return "redirect:/recipe/" + id;
     }
     @PostMapping(path = "/edit/{id}/deleteRecipe")

@@ -4,11 +4,13 @@ import de.hsba.bi.grp3.recipe.Ingredient;
 import de.hsba.bi.grp3.recipe.Recipe;
 import org.springframework.stereotype.Component;
 
+import java.math.RoundingMode;
+
 @Component
 public class RecipeFormConverter {
 
 
-    public RecipeForm toForm(Recipe recipe) {
+    public RecipeForm recipeToForm(Recipe recipe) {
         RecipeForm recipeForm = new RecipeForm();
         recipeForm.setTitle(recipe.getTitle());
         recipeForm.setDescription(recipe.getDescription());
@@ -21,7 +23,7 @@ public class RecipeFormConverter {
         return recipeForm;
     }
 
-    public Recipe update(Recipe recipe, RecipeForm recipeForm) {
+    public Recipe updateRecipe(Recipe recipe, RecipeForm recipeForm) {
         recipe.setTitle(recipeForm.getTitle());
         recipe.setDescription(recipeForm.getDescription());
         recipe.setInstruction(recipeForm.getInstruction());
@@ -39,7 +41,7 @@ public class RecipeFormConverter {
         return recipe;
     }
 
-    public IngredientForm toForm(IngredientForm ingredientForm) {
+    public IngredientForm ingredientToForm(IngredientForm ingredientForm) {
         IngredientForm form = new IngredientForm();
         form.setName(ingredientForm.getName());
         form.setAmount(ingredientForm.getAmount());
@@ -47,7 +49,7 @@ public class RecipeFormConverter {
         return form;
     }
 
-    public Ingredient update(Ingredient ingredient, IngredientForm ingredientForm) {
+    public Ingredient updateIngredient(Ingredient ingredient, IngredientForm ingredientForm) {
         ingredient.setName(ingredientForm.getName());
         ingredient.setAmount(ingredientForm.getAmount());
         ingredient.setUom(ingredientForm.getUom());

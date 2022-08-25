@@ -43,14 +43,28 @@
                             <th class="th-normal">Privat Recipe:</th>
                             <th class="th-bold"  th:text="${recipe.isPrivat}"></th>
                         </tr>
+                        <form th:action="${'/recipe/' + recipe.id}" method="get" th:object="${amountServingsForm}">
+                            <tr>
+                                <th class="th-normal">Portions:</th>
+                                <th class="th-bold">
+                                    <input class="form-control form-control-sm" type="number" name="amountServingsEntry" placeholder="AmountServings" th:value="*{amountServings}" th:classappend="${#fields.hasErrors('amountServings') ? 'is-invalid' : ''}">
+                                    <span class="text-danger" th:errors="*{amountServings}" />
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="th-normal"></th>
+                                <th class="th-bold">
+                                    <button class="btn btn-primary btn-sm" type="submit">Calculate</button>
+                                </th>
+                            </tr>
+                        </form>
                     </table>
                 </div>
                 <div class="col" th:if="${recipe.ingredientEntries != null and recipe != null}">
                     <div class="row pb-1 pl-3" th:each="ingredient : ${recipe.ingredientEntries}">
-                        <div class="card" th:text="${ingredient.amount + ' ' + ingredient.uom + ' ' + ingredient.name}"></div>
+                        <div class="card" th:text="${ingredient.amount*servingsFactor + ' ' + ingredient.uom + ' ' + ingredient.name}"></div>
                     </div>
                 </div>
-
             </div>
 
         </div>
