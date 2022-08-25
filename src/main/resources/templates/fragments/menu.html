@@ -12,17 +12,13 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="${'/user'}">Account</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                English
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
                     </ul>
+                </div>
+                <div class="mr-2">
+                    <select class="form-select form-control bg-dark text-white" aria-label="Default select example">
+                        <option value="1">English</option>
+                        <option value="2">German</option>
+                    </select>
                 </div>
                 <form  class="float-right" method="post" th:action="@{/logout}">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
