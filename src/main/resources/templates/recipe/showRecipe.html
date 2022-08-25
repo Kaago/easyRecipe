@@ -62,7 +62,7 @@
                 </div>
                 <div class="col" th:if="${recipe.ingredientEntries != null and recipe != null}">
                     <div class="row pb-1 pl-3" th:each="ingredient : ${recipe.ingredientEntries}">
-                        <div class="card" th:text="${ingredient.amount*servingsFactor + ' ' + ingredient.uom + ' ' + ingredient.name}"></div>
+                        <div class="card" th:text="${#numbers.formatDecimal(ingredient.amount*servingsFactor, 0, 0) + ' ' + ingredient.uom + ' ' + ingredient.name}"></div>
                     </div>
                 </div>
             </div>

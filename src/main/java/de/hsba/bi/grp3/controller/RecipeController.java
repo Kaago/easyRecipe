@@ -92,11 +92,11 @@ public class RecipeController {
         model.addAttribute("difficultyList", difficultyList);
         return "recipe/editRecipe";
     }
-    @GetMapping(path = "/deleteIngredient/{indexId}")
+    @GetMapping(path = "/edit/{id}/deleteIngredient/{indexId}")
     public String deleteIngredient(@PathVariable("id") Long id, @PathVariable(value="indexId") int ingredientListPos){
         Recipe recipe = recipeService.getRecipe(id);
         recipeService.deleteIngredientByIndexId(recipe, ingredientListPos);
-        return "redirect:/recipe/editRecipe/" + recipe.getId();
+        return "redirect:/recipe/edit/" + id;
     }
 
     @PostMapping(path = "/edit/{id}/add-ingredient", params="action=addIngredient")
@@ -104,6 +104,7 @@ public class RecipeController {
         Recipe recipe = getRecipeById(id);
         if (ingredientBinding.hasErrors()) {
             model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipe));
+            model.addAttribute("recipe", recipeService.getRecipe(id));
             List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
             model.addAttribute("unitOfMeasureList", unitOfMeasureList);
             List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
@@ -117,13 +118,13 @@ public class RecipeController {
     public String saveAndShowRecipe(@PathVariable("id") Long id, @ModelAttribute("recipeForm") @Valid RecipeForm recipeForm, BindingResult recipeBinding, Model model){
         if (recipeBinding.hasErrors()) {
             model.addAttribute("ingredientForm", new IngredientForm());
+            model.addAttribute("recipe", recipeService.getRecipe(id));
             List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
             model.addAttribute("unitOfMeasureList", unitOfMeasureList);
             List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
             model.addAttribute("difficultyList", difficultyList);
             return "recipe/editRecipe";
         }
-
         recipeService.saveRecipe(recipeFormConverter.updateRecipe(getRecipeById(id),recipeForm));
         return "redirect:/recipe/" + id;
     }
