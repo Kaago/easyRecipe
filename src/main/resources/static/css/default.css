@@ -11,3 +11,8 @@ html { overflow-y: scroll; }
 .borderless td, .borderless th {
     border: none;
 }
+
+.table-line tr {
+    border-bottom: 1px solid gray;
+}
+

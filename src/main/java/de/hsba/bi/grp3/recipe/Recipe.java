@@ -34,11 +34,11 @@ public class Recipe {
     @Lob
     private String instruction;
 
-    private BigDecimal prepTime;
+    private Integer prepTime;
 
-    private BigDecimal cookTime;
+    private Integer cookTime;
 
-    private BigDecimal servings;
+    private Integer servings;
 
     @Enumerated
     private Difficulty difficulty;

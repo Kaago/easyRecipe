@@ -19,6 +19,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,12 +37,20 @@ public class RecipeController {
 
 
     @GetMapping("/{id}")
-    public String showSelectedRecipe(@PathVariable("id") Long id, Model model) {
+    public String showSelectedRecipe(@PathVariable("id") Long id, Model model, @RequestParam(value = "amountServingsEntry", required = false, defaultValue = "") Integer amountServingsEntry, @ModelAttribute("AmountServingsForm") AmountServingsForm amountServingsForm) {
         Recipe recipe = recipeService.getRecipe(id);
         model.addAttribute("recipe", recipe);
         model.addAttribute("isUserOwner", userService.isUserOwner(recipe.getOwner()));
         model.addAttribute("commentForm", new CommentForm());
         model.addAttribute("recipeComments", commentService.getAllRecipeComments(recipe));
+        if (amountServingsEntry == null || amountServingsEntry <= 0) {
+            model.addAttribute("amountServingsForm", new AmountServingsForm(recipe.getServings()));
+            amountServingsEntry = recipe.getServings();
+        }
+        else {
+            model.addAttribute("amountServingsForm", new AmountServingsForm(amountServingsEntry));
+        }
+        model.addAttribute("servingsFactor", recipeService.getServingsFactor(amountServingsEntry, recipe.getServings()));
         return "recipe/showRecipe";
     }
 
@@ -68,6 +78,7 @@ public class RecipeController {
             throw new ForbiddenException();
         }
         model.addAttribute("recipeForm", recipeFormConverter.toForm(recipeService.getRecipe(id)));
+        model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipeService.getRecipe(id)));
         model.addAttribute("ingredientForm", new IngredientForm());
         model.addAttribute("recipe", recipeService.getRecipe(id));
         List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
@@ -76,14 +87,14 @@ public class RecipeController {
         model.addAttribute("difficultyList", difficultyList);
         return "recipe/editRecipe";
     }
-    @GetMapping(path = "/deleteIngredient/{indexId}")
+    @GetMapping(path = "/edit/{id}/deleteIngredient/{indexId}")
     public String deleteIngredient(@PathVariable("id") Long id, @PathVariable(value="indexId") int ingredientListPos){
         if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
             throw new ForbiddenException();
         }
         Recipe recipe = recipeService.getRecipe(id);
         recipeService.deleteIngredientByIndexId(recipe, ingredientListPos);
-        return "redirect:/recipe/editRecipe/" + recipe.getId();
+        return "redirect:/recipe/edit/" + id;
     }
 
     @PostMapping(path = "/edit/{id}/add-ingredient", params="action=addIngredient")
@@ -93,14 +104,15 @@ public class RecipeController {
         }
         Recipe recipe = recipeService.getRecipe(id);
         if (ingredientBinding.hasErrors()) {
-            model.addAttribute("recipeForm", recipeFormConverter.toForm(recipe));
+            model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipe));
+            model.addAttribute("recipe", recipeService.getRecipe(id));
             List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
             model.addAttribute("unitOfMeasureList", unitOfMeasureList);
             List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
             model.addAttribute("difficultyList", difficultyList);
             return "recipe/editRecipe";
         }
-        recipeService.addIngredient(recipe, recipeFormConverter.update(new Ingredient(), ingredientForm));
+        recipeService.addIngredient(recipe, recipeFormConverter.updateIngredient(new Ingredient(), ingredientForm));
         return "redirect:/recipe/edit/" + id;
     }
     @PostMapping("/edit/{id}")
@@ -110,14 +122,14 @@ public class RecipeController {
         }
         if (recipeBinding.hasErrors()) {
             model.addAttribute("ingredientForm", new IngredientForm());
+            model.addAttribute("recipe", recipeService.getRecipe(id));
             List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
             model.addAttribute("unitOfMeasureList", unitOfMeasureList);
             List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
             model.addAttribute("difficultyList", difficultyList);
             return "recipe/editRecipe";
         }
-
-        recipeService.saveRecipe(recipeFormConverter.update(recipeService.getRecipe(id),recipeForm));
+        recipeService.saveRecipe(recipeFormConverter.updateRecipe(getRecipeById(id),recipeForm));
         return "redirect:/recipe/" + id;
     }
     @PostMapping(path = "/edit/{id}/deleteRecipe")

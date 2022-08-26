@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.List;
 
@@ -77,4 +78,10 @@ public class RecipeService {
         repository.deleteById(id);
     }
 
+    public Double getServingsFactor (Integer factor, Integer base){
+        if (factor == null) {
+            return base.doubleValue();
+        }
+        return factor.doubleValue()/base.doubleValue();
+    }
 }

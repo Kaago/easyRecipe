@@ -39,14 +39,14 @@ public class TestDataCreator {
         Recipe recipe = recipeService.createRecipe("Zimt-Koriander-Bällchen in Pfeffer-Paprikasauce", test);
         recipe.setDescription("orientalisch angehaucht, mit tollem Zimtaroma");
         recipe.setInstruction("Das Hackfleisch mit Semmelbröseln, Zimt, Koriander, Paprikapulver und Meersalz vermengen und kleine Bällchen daraus formen.");
-        recipe.setServings(new BigDecimal(1));
-        recipe.setPrepTime(new BigDecimal(20));
-        recipe.setCookTime(new BigDecimal(60));
+        recipe.setServings(2);
+        recipe.setPrepTime(20);
+        recipe.setCookTime(60);
         recipe.setIsPrivat(false);
         recipe.setDifficulty(Difficulty.moderate);
         recipe.setOwner(test);
-        recipeService.addIngredient(recipe, new Ingredient("Tomaten", new BigDecimal(400), UnitOfMeasure.g));
-        recipeService.addIngredient(recipe, new Ingredient("Mehl", new BigDecimal(500), UnitOfMeasure.g));
+        recipeService.addIngredient(recipe, new Ingredient("Tomaten", 400, UnitOfMeasure.g));
+        recipeService.addIngredient(recipe, new Ingredient("Mehl", 500, UnitOfMeasure.g));
         recipeService.saveRecipe(recipe);
 
         commentService.createComment("Test", 2L, test, recipe);

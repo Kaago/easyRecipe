@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Getter
 @Setter
@@ -21,7 +22,7 @@ public class Ingredient {
     private String name;
 
     @Basic(optional = false)
-    private BigDecimal amount;
+    private Integer amount;
 
     @Enumerated
     @Basic(optional = false)
@@ -36,7 +37,7 @@ public class Ingredient {
 
     }
 
-    public Ingredient(String name, BigDecimal amount, UnitOfMeasure uom) {
+    public Ingredient(String name, Integer amount, UnitOfMeasure uom) {
         this.name = name;
         this.amount = amount;
         this.uom = uom;
