@@ -77,7 +77,7 @@ public class RecipeController {
         if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
             throw new ForbiddenException();
         }
-        model.addAttribute("recipeForm", recipeFormConverter.toForm(recipeService.getRecipe(id)));
+        model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipeService.getRecipe(id)));
         model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipeService.getRecipe(id)));
         model.addAttribute("ingredientForm", new IngredientForm());
         model.addAttribute("recipe", recipeService.getRecipe(id));
@@ -129,7 +129,7 @@ public class RecipeController {
             model.addAttribute("difficultyList", difficultyList);
             return "recipe/editRecipe";
         }
-        recipeService.saveRecipe(recipeFormConverter.updateRecipe(getRecipeById(id),recipeForm));
+        recipeService.saveRecipe(recipeFormConverter.updateRecipe(recipeService.getRecipe(id),recipeForm));
         return "redirect:/recipe/" + id;
     }
     @PostMapping(path = "/edit/{id}/deleteRecipe")
