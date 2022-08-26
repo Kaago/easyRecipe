@@ -2,7 +2,7 @@
 
 ## 1 technische Voraussetzungen
 - Intellij
-- Java 11 / Java 17
+- Java 17
 
 ## 2 Project Set-Up
 - Projekt-Files herunterladen bzw. in einen beliebigen Ordner das Git-Repo clonen
