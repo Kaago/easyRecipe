@@ -1,6 +1,7 @@
 package de.hsba.bi.grp3.controller;
 
 import de.hsba.bi.grp3.comment.Comment;
+import de.hsba.bi.grp3.exceptionHandlers.ForbiddenException;
 import de.hsba.bi.grp3.exceptionHandlers.NotFoundException;
 import de.hsba.bi.grp3.form.*;
 import de.hsba.bi.grp3.recipe.Difficulty;
@@ -32,18 +33,10 @@ public class RecipeController {
     private final CommentFormConverter commentFormConverter;
     private final RecipeFormConverter recipeFormConverter;
 
-    //custom function to catch internal 500 error
-    public Recipe getRecipeById(@PathVariable("id") Long id) {
-        Recipe recipe = recipeService.getRecipe(id);
-        if (recipe == null) {
-            throw new NotFoundException();
-        }
-        return recipe;
-    }
 
     @GetMapping("/{id}")
     public String showSelectedRecipe(@PathVariable("id") Long id, Model model) {
-        Recipe recipe = getRecipeById(id);
+        Recipe recipe = recipeService.getRecipe(id);
         model.addAttribute("recipe", recipe);
         model.addAttribute("isUserOwner", userService.isUserOwner(recipe.getOwner()));
         model.addAttribute("commentForm", new CommentForm());
@@ -56,24 +49,25 @@ public class RecipeController {
     @PostMapping(path = "/{id}/add-comment", params="action=addComment")
     public String createComment(@PathVariable("id") Long id, @ModelAttribute("commentForm") @Valid CommentForm commentForm, BindingResult commentBinding, Model model){
         if (commentBinding.hasErrors()) {
-            Recipe recipe = getRecipeById(id);
+            Recipe recipe = recipeService.getRecipe(id);
             model.addAttribute("recipe", recipe);
             model.addAttribute("isUserOwner", userService.isUserOwner(recipe.getOwner()));
             model.addAttribute("recipeComments", commentService.getAllRecipeComments(recipe));
             return "recipe/showRecipe";
         }
         User currentUser = userService.findCurrentUser();
-        commentService.saveComment(commentFormConverter.createComment(new Comment(currentUser, getRecipeById(id)), commentForm));
+        commentService.saveComment(commentFormConverter.createComment(new Comment(currentUser, recipeService.getRecipe(id)), commentForm));
         return "redirect:/recipe/" + id;
     }
 
 
     //EditRecipe Mappings
-
-
     @GetMapping("/edit/{id}")
     public String showEditableRecipe(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("recipeForm", recipeFormConverter.toForm(getRecipeById(id)));
+        if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
+            throw new ForbiddenException();
+        }
+        model.addAttribute("recipeForm", recipeFormConverter.toForm(recipeService.getRecipe(id)));
         model.addAttribute("ingredientForm", new IngredientForm());
         model.addAttribute("recipe", recipeService.getRecipe(id));
         List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
@@ -84,6 +78,9 @@ public class RecipeController {
     }
     @GetMapping(path = "/deleteIngredient/{indexId}")
     public String deleteIngredient(@PathVariable("id") Long id, @PathVariable(value="indexId") int ingredientListPos){
+        if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
+            throw new ForbiddenException();
+        }
         Recipe recipe = recipeService.getRecipe(id);
         recipeService.deleteIngredientByIndexId(recipe, ingredientListPos);
         return "redirect:/recipe/editRecipe/" + recipe.getId();
@@ -91,7 +88,10 @@ public class RecipeController {
 
     @PostMapping(path = "/edit/{id}/add-ingredient", params="action=addIngredient")
     public String addIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredientForm") @Valid IngredientForm ingredientForm, BindingResult ingredientBinding, Model model) {
-        Recipe recipe = getRecipeById(id);
+        if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
+            throw new ForbiddenException();
+        }
+        Recipe recipe = recipeService.getRecipe(id);
         if (ingredientBinding.hasErrors()) {
             model.addAttribute("recipeForm", recipeFormConverter.toForm(recipe));
             List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
@@ -105,6 +105,9 @@ public class RecipeController {
     }
     @PostMapping("/edit/{id}")
     public String saveAndShowRecipe(@PathVariable("id") Long id, @ModelAttribute("recipeForm") @Valid RecipeForm recipeForm, BindingResult recipeBinding, Model model){
+        if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
+            throw new ForbiddenException();
+        }
         if (recipeBinding.hasErrors()) {
             model.addAttribute("ingredientForm", new IngredientForm());
             List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
@@ -114,13 +117,16 @@ public class RecipeController {
             return "recipe/editRecipe";
         }
 
-        recipeService.saveRecipe(recipeFormConverter.update(getRecipeById(id),recipeForm));
+        recipeService.saveRecipe(recipeFormConverter.update(recipeService.getRecipe(id),recipeForm));
         return "redirect:/recipe/" + id;
     }
     @PostMapping(path = "/edit/{id}/deleteRecipe")
     public String delete(@PathVariable("id") Long id) {
+        if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
+            throw new ForbiddenException();
+        }
         recipeService.deleteRecipe(id);
-        return "redirect:/recipe/";
+        return "redirect:/easy-recipe/";
     }
 
 }

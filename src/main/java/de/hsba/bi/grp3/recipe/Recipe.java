@@ -1,5 +1,6 @@
 package de.hsba.bi.grp3.recipe;
 
+import de.hsba.bi.grp3.comment.Comment;
 import de.hsba.bi.grp3.user.User;
 import lombok.Data;
 import lombok.Getter;
@@ -16,6 +17,9 @@ import java.util.Set;
 @Getter
 @Setter
 public class Recipe {
+
+    @OneToMany(mappedBy = "recipe", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH }, orphanRemoval = true)
+    private List<Comment> comments;
 
     @Id
     @GeneratedValue()

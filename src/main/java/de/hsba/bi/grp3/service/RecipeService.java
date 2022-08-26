@@ -1,8 +1,7 @@
 package de.hsba.bi.grp3.service;
 
 
-import de.hsba.bi.grp3.form.RecipeForm;
-import de.hsba.bi.grp3.form.RecipeFormConverter;
+import de.hsba.bi.grp3.exceptionHandlers.NotFoundException;
 import de.hsba.bi.grp3.recipe.Ingredient;
 import de.hsba.bi.grp3.recipe.Recipe;
 import de.hsba.bi.grp3.repository.RecipeRepository;
@@ -19,11 +18,12 @@ import java.util.List;
 public class RecipeService {
 
 
-
     private final RecipeRepository repository;
+    private final UserService userService;
 
-    public RecipeService(RecipeRepository repository) {
+    public RecipeService(RecipeRepository repository, UserService userService) {
         this.repository = repository;
+        this.userService = userService;
     }
 
     public Recipe createRecipe(String title, User owner) {
@@ -48,8 +48,17 @@ public class RecipeService {
         return repository.save(recipe);
     }
 
-    public Recipe getRecipe(Long id){
-        return repository.findById(id).orElse(null);
+    public Recipe getRecipe(Long id) {
+        try {
+            Recipe recipe = repository.findById(id).orElse(null);
+            if (recipe != null) {
+                return recipe;
+            } else {
+                throw new NotFoundException();
+            }
+        } catch (NullPointerException e) {
+            throw new NotFoundException();
+        }
     }
 
     public Collection<Recipe> getAllRecipes() {

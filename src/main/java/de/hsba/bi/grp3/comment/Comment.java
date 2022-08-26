@@ -15,6 +15,11 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class Comment {
 
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Recipe recipe;
+
     @Id
     @GeneratedValue()
     private Long id;
@@ -26,9 +31,6 @@ public class Comment {
 
     @ManyToOne(optional = false)
     private User owner;
-
-    @ManyToOne(cascade=CascadeType.ALL,optional = false)
-    private Recipe recipe;
 
     public Comment(){}
     public Comment(User owner, Recipe recipe){
