@@ -48,8 +48,22 @@ public class TestDataCreator {
         recipeService.addIngredient(recipe, new Ingredient("Tomaten", 400, UnitOfMeasure.g));
         recipeService.addIngredient(recipe, new Ingredient("Mehl", 500, UnitOfMeasure.g));
         recipeService.saveRecipe(recipe);
+        commentService.createComment("Test", 2F, test, recipe);
 
-        commentService.createComment("Test", 2L, test, recipe);
+        // add example Journal for testing
+        Recipe recipe1 = recipeService.createRecipe("Pizza", test);
+        recipe1.setDescription("Italienische Art");
+        recipe1.setInstruction("Das Hackfleisch mit Semmelbröseln, Zimt, Koriander, Paprikapulver und Meersalz vermengen und kleine Bällchen daraus formen.");
+        recipe1.setServings(2);
+        recipe1.setPrepTime(20);
+        recipe1.setCookTime(60);
+        recipe1.setIsPrivat(false);
+        recipe1.setDifficulty(Difficulty.moderate);
+        recipe1.setOwner(test);
+        recipeService.addIngredient(recipe1, new Ingredient("Tomaten", 400, UnitOfMeasure.g));
+        recipeService.addIngredient(recipe1, new Ingredient("Mehl", 500, UnitOfMeasure.g));
+        recipeService.saveRecipe(recipe1);
+        commentService.createComment("Test", 4F, test, recipe1);
     }
 
 }

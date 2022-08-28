@@ -18,9 +18,6 @@ import java.util.Set;
 @Setter
 public class Recipe {
 
-    @OneToMany(mappedBy = "recipe", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH }, orphanRemoval = true)
-    private List<Comment> comments;
-
     @Id
     @GeneratedValue()
     @Getter
@@ -54,6 +51,9 @@ public class Recipe {
     @OrderBy
     private List<Ingredient> ingredients;
 
+
+    @OneToMany(mappedBy = "recipe", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH }, orphanRemoval = true)
+    private List<Comment> comments;
 
     // Constructor
 

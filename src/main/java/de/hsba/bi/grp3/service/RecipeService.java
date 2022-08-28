@@ -66,8 +66,14 @@ public class RecipeService {
         return repository.findAll();
     }
 
-    public List<Recipe> findRecipeBySearchText(String search) {
-        return search.isBlank() ? repository.findAll() : repository.findRecipeBySearchText(search.trim());
+    public List<Recipe> findRecipeBySearchText(String search, String order) {
+        if (order.equals("HighestRating")) {
+            return search.isBlank() ? repository.findAllRecipeOrderByRatingDesc(search.trim()) : repository.findRecipeBySearchTextOrderByRatingDesc(search.trim());
+        }
+        else if (order.equals("LowestRating")) {
+            return search.isBlank() ? repository.findAllRecipeOrderByRatingAsc(search.trim()) : repository.findRecipeBySearchTextOrderByRatingAsc(search.trim());
+        }
+        return repository.findAllRecipeOrderByRatingDesc(search.trim());
     }
 
     public List<Recipe> findRecipeByUser(User user) {
@@ -79,6 +85,9 @@ public class RecipeService {
     }
 
     public Double getServingsFactor (Integer factor, Integer base){
+        if (base == null || base == 0) {
+            return 1D;
+        }
         if (factor == null) {
             return base.doubleValue();
         }

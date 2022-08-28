@@ -37,7 +37,7 @@ public class Comment {
         this.owner = owner;
         this.recipe = recipe;
     }
-    public Comment(String textContent, Long rating, User owner, Recipe recipe){
+    public Comment(String textContent, float rating, User owner, Recipe recipe){
         this.textContent = textContent;
         this.rating = rating;
         this.owner = owner;

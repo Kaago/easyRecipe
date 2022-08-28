@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
@@ -77,9 +78,25 @@ public class RecipeController {
         if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
             throw new ForbiddenException();
         }
-        model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipeService.getRecipe(id)));
-        model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipeService.getRecipe(id)));
-        model.addAttribute("ingredientForm", new IngredientForm());
+        // If there are any validation errors, they will be caught here in order to show the error-messages
+        try {
+            BindingResult bindingResultRecipe = (BindingResult) model.asMap().get("org.springframework.validation.BindingResult.recipeForm");
+            if (bindingResultRecipe.hasErrors()) {
+                model.addAttribute("ingredientForm", new IngredientForm());
+            }
+        } catch (NullPointerException e){
+            model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipeService.getRecipe(id)));
+        }
+        try {
+            BindingResult bindingResultIngredient = (BindingResult) model.asMap().get("org.springframework.validation.BindingResult.ingredientForm");
+            if (bindingResultIngredient.hasErrors()) {
+                model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipeService.getRecipe(id)));
+            }
+        } catch (NullPointerException e){
+            model.addAttribute("ingredientForm", new IngredientForm());
+        }
+
+        // Load recipe properties
         model.addAttribute("recipe", recipeService.getRecipe(id));
         List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
         model.addAttribute("unitOfMeasureList", unitOfMeasureList);
@@ -87,6 +104,7 @@ public class RecipeController {
         model.addAttribute("difficultyList", difficultyList);
         return "recipe/editRecipe";
     }
+
     @GetMapping(path = "/edit/{id}/deleteIngredient/{indexId}")
     public String deleteIngredient(@PathVariable("id") Long id, @PathVariable(value="indexId") int ingredientListPos){
         if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
@@ -98,36 +116,30 @@ public class RecipeController {
     }
 
     @PostMapping(path = "/edit/{id}/add-ingredient", params="action=addIngredient")
-    public String addIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredientForm") @Valid IngredientForm ingredientForm, BindingResult ingredientBinding, Model model) {
+    public String addIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredientForm") @Valid final IngredientForm ingredientForm, final BindingResult ingredientBinding, Model model, RedirectAttributes redirectAttributes) {
         if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
             throw new ForbiddenException();
         }
         Recipe recipe = recipeService.getRecipe(id);
         if (ingredientBinding.hasErrors()) {
-            model.addAttribute("recipeForm", recipeFormConverter.recipeToForm(recipe));
-            model.addAttribute("recipe", recipeService.getRecipe(id));
-            List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
-            model.addAttribute("unitOfMeasureList", unitOfMeasureList);
-            List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
-            model.addAttribute("difficultyList", difficultyList);
-            return "recipe/editRecipe";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.ingredientForm", ingredientBinding);
+            redirectAttributes.addFlashAttribute("ingredientForm", ingredientForm);
+            redirectAttributes.addFlashAttribute("model", model);
+            return "redirect:/recipe/edit/" + id;
         }
         recipeService.addIngredient(recipe, recipeFormConverter.updateIngredient(new Ingredient(), ingredientForm));
         return "redirect:/recipe/edit/" + id;
     }
     @PostMapping("/edit/{id}")
-    public String saveAndShowRecipe(@PathVariable("id") Long id, @ModelAttribute("recipeForm") @Valid RecipeForm recipeForm, BindingResult recipeBinding, Model model){
+    public String saveAndShowRecipe(@PathVariable("id") Long id, @ModelAttribute("recipeForm") @Valid RecipeForm recipeForm, BindingResult recipeBinding, Model model, RedirectAttributes redirectAttributes){
         if (!userService.isUserOwner(recipeService.getRecipe(id).getOwner())){
             throw new ForbiddenException();
         }
         if (recipeBinding.hasErrors()) {
-            model.addAttribute("ingredientForm", new IngredientForm());
-            model.addAttribute("recipe", recipeService.getRecipe(id));
-            List<UnitOfMeasure> unitOfMeasureList = Arrays.asList(UnitOfMeasure.values());
-            model.addAttribute("unitOfMeasureList", unitOfMeasureList);
-            List<Difficulty> difficultyList = Arrays.asList(Difficulty.values());
-            model.addAttribute("difficultyList", difficultyList);
-            return "recipe/editRecipe";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.recipeForm", recipeBinding);
+            redirectAttributes.addFlashAttribute("recipeForm", recipeForm);
+            redirectAttributes.addFlashAttribute("model", model);
+            return "redirect:/recipe/edit/" + id;
         }
         recipeService.saveRecipe(recipeFormConverter.updateRecipe(recipeService.getRecipe(id),recipeForm));
         return "redirect:/recipe/" + id;

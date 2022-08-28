@@ -19,7 +19,7 @@ public class CommentService {
         this.repository = repository;
     }
 
-    public Comment createComment(String textContent, Long rating, User owner, Recipe recipe){
+    public Comment createComment(String textContent, float rating, User owner, Recipe recipe){
         Comment comment = new Comment(textContent, rating, owner, recipe);
         return saveComment(comment);
     }

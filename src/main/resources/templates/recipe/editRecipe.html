@@ -20,7 +20,7 @@
                         <th>
                             <input class="form-control form-control-sm" type="text" id="title" th:field="*{title}"
                                    th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}">
-                            <span class="text-danger" th:errors="*{title}"/>
+                            <span class="text-danger" th:errors="*{title}"></span>
                         </th>
                     </tr>
                     <tr>
@@ -31,7 +31,7 @@
                             <input class="form-control form-control-sm" type="text" id="description"
                                    th:field="*{description}"
                                    th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}">
-                            <span class="text-danger" th:errors="*{description}"/>
+                            <span class="text-danger" th:errors="*{description}"></span>
                         </th>
                     </tr>
                     <tr>
@@ -42,7 +42,7 @@
                             <input class="form-control form-control-sm" type="number" id="servings" name="servings"
                                    th:field="*{servings}"
                                    th:classappend="${#fields.hasErrors('servings') ? 'is-invalid' : ''}">
-                            <span class="text-danger" th:errors="*{servings}"/>
+                            <span class="text-danger" th:errors="*{servings}"></span>
                         </th>
                     </tr>
                     <tr>
@@ -53,7 +53,7 @@
                     <textarea class="form-control form-control-sm" type="text" id="instruction" name="instruction"
                               th:field="*{instruction}"
                               th:classappend="${#fields.hasErrors('instruction') ? 'is-invalid' : ''}"> </textarea>
-                            <span class="text-danger" th:errors="*{instruction}"/>
+                            <span class="text-danger" th:errors="*{instruction}"></span>
                         </th>
                     </tr>
                     <tr>
@@ -77,7 +77,7 @@
                                    name="prepTime"
                                    th:field="*{prepTime}"
                                    th:classappend="${#fields.hasErrors('prepTime') ? 'is-invalid' : ''}">
-                            <span class="text-danger" th:errors="*{prepTime}"/>
+                            <span class="text-danger" th:errors="*{prepTime}"></span>
                         </th>
                     </tr>
                     <tr>
@@ -88,7 +88,7 @@
                             <input class="form-control form-control-sm" type="number" id="cookTime" name="cookTime"
                                    th:field="*{cookTime}"
                                    th:classappend="${#fields.hasErrors('cookTime') ? 'is-invalid' : ''}">
-                            <span class="text-danger" th:errors="*{cookTime}"/>
+                            <span class="text-danger" th:errors="*{cookTime}"></span>
                         </th>
                     </tr>
                     <tr>
@@ -139,14 +139,14 @@
                           method="post">
                         <th><input class="form-control form-control-sm" type="number" id="amount" th:field="*{amount}"
                                    th:classappend="${#fields.hasErrors('amount') ? 'is-invalid' : ''}"><span
-                                class="text-danger" th:errors="*{amount}"/></th>
+                                class="text-danger" th:errors="*{amount}"></span></th>
                         <th><select class="form-control form-control-sm" id="uom" th:field="*{uom}">
                             <option th:each="unitOfMeasure : ${unitOfMeasureList}" th:text="${unitOfMeasure}"
                                     th:value="${unitOfMeasure}"></option>
                         </select></th>
                         <th><input class="form-control form-control-sm" type="text" id="name" th:field="*{name}"
                                    th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"><span
-                                class="text-danger" th:errors="*{name}"/></th>
+                                class="text-danger" th:errors="*{name}"></span></th>
                         <th>
                             <button class="btn btn-primary btn-sm" type="submit" name="action" value="addIngredient">Add
                                 Ingredient
