@@ -1,4 +1,4 @@
-# Technisches Benutzerhandbuch - easyRecipe
+# Technische Handbuch - easyRecipe
 
 ## 1 technische Voraussetzungen
 - Intellij
