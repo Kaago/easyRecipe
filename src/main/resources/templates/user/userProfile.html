@@ -8,31 +8,31 @@
         <div class="col"></div>
         <div class="col-7">
             <div class="row pt-4">
-                <div class="col h1">Benutzer-Profil</div>
+                <div class="col h1" th:text="#{UserProfile}"></div>
             </div>
             <table class="table">
                 <tbody>
                 <tr>
-                    <td>Username:</td>
+                    <td th:text="#{Username}"></td>
                     <td th:text="${user.name}"></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <a th:href="${'/user/edit-user'}" class="btn btn-primary">Passwort ändern</a>
+                        <a th:href="${'/user/edit-user'}" class="btn btn-primary" th:text="#{ChancePasswort}"></a>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
             <div class="row pt-4">
-                <div class="col h1">Rezepte</div>
+                <div class="col h1" th:text="#{Recipe}"></div>
             </div>
             <table class="table">
                 <tbody>
                 <tr th:each="recipe : ${userRecipes}">
                     <td th:text="${recipe.getTitle()}"></td>
                     <td style="text-align: right">
-                        <a th:href="${'/recipe/edit/' + recipe.getId()}" class="btn btn-primary">Edit Recipe</a>
+                        <a th:href="${'/recipe/edit/' + recipe.getId()}" class="btn btn-primary" th:text="#{EditRecipe}"></a>
                     </td>
 
                 </tr>
@@ -41,7 +41,7 @@
             </table>
 
             <div class="row pt-4">
-                <div class="col h1">Kommentare</div>
+                <div class="col h1" th:text="#{Comments}"></div>
             </div>
             <table class="table">
                 <tbody>
@@ -49,7 +49,7 @@
                     <td th:text="${comment.getRecipe().getTitle()}"></td>
                     <td th:text="${comment.getTextContent()}"></td>
                     <td style="text-align: right">
-                        <a th:href="${'/user/edit-comment/' + comment.getId()}" class="btn btn-primary">Edit Comment</a>
+                        <a th:href="${'/user/edit-comment/' + comment.getId()}" class="btn btn-primary" th:text="#{EditComment}"></a>
                     </td>
                 </tr>
 

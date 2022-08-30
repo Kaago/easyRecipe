@@ -8,13 +8,13 @@
         <div class="col"></div>
         <div class="col-7">
             <div class="row pt-4">
-                <div class="col h1">Edit Profile</div>
+                <div class="col h1" th:text="#{EditProfile}"></div>
             </div>
             <form th:action="${'/user/edit-user'}" th:object="${changePasswordForm}" method="post">
                 <table class="table borderless">
                     <tr>
                         <th style="width: 15%">
-                            <label for="password">New password:</label>
+                            <label for="password" th:text="#{NewPasswort}">New password:</label>
                         </th>
                         <th>
                             <input class="form-control form-control-sm" type="text" id="password" th:field="*{newPassword}">
@@ -22,7 +22,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <button class="btn btn-primary btn-sm" type="submit">Change Password</button>
+                            <button class="btn btn-primary btn-sm" type="submit" th:text="#{ChancePasswort}"></button>
                         </th>
                     </tr>
                 </table>

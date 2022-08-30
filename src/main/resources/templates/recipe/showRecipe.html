@@ -18,7 +18,7 @@
                 <div class="col"><hr></div>
             </div>
             <div class="row pt-4">
-                <div class="col h5">Instruction:</div>
+                <div class="col h5" th:text="#{Instruction}"></div>
             </div>
             <div class="row">
                 <div class="col overflow-auto" style="max-height:300px" th:text="${recipe.instruction}"></div>
@@ -27,32 +27,32 @@
                 <div class="col"><hr></div>
             </div>
             <div class="row pt-4">
-                <div class="col h5">Infos:</div>
-                <div class="col h5">Ingredients:</div>
+                <div class="col h5" th:text="#{Information}"></div>
+                <div class="col h5" th:text="#{Ingredients}"></div>
             </div>
             <div class="row pt-4">
                 <div class="col">
                     <table class="table table-borderless">
                         <tbody>
                         <tr>
-                            <th class="th-normal">Difficulty:</th>
+                            <th class="th-normal" th:text="#{Difficulty}"></th>
                             <th class="th-bold" th:text="${recipe.difficulty}"></th>
                         </tr>
                         <tr>
-                            <th class="th-normal">Preparation Time:</th>
+                            <th class="th-normal" th:text="#{PreparationTime}"></th>
                             <th class="th-bold" th:text="${recipe.prepTime}"></th>
                         </tr>
                         <tr>
-                            <th class="th-normal">Cooking Time:</th>
+                            <th class="th-normal" th:text="#{CookingTime}"></th>
                             <th class="th-bold" th:text="${recipe.cookTime}"></th>
                         </tr>
                         <tr>
-                            <th class="th-normal">Privat Recipe:</th>
+                            <th class="th-normal" th:text="#{PrivateRecipe}"></th>
                             <th class="th-bold" th:text="${recipe.isPrivat}"></th>
                         </tr>
                         <form th:action="${'/recipe/' + recipe.id}" method="get" th:object="${amountServingsForm}">
                             <tr>
-                                <th class="th-normal">Portions:</th>
+                                <th class="th-normal" th:text="#{Portions}"></th>
                                 <th class="th-bold row">
                                     <input class="form-control form-control-sm col-7 ml-3" type="number"
                                            name="amountServingsEntry" placeholder="AmountServings"
@@ -80,7 +80,7 @@
     <div class="row pt-2">
         <div class="col"></div>
         <div class="col-7">
-            <a th:href="${'/recipe/edit/' + recipe.id}" th:if="${isUserOwner}" class="btn btn-primary">Edit Recipe</a>
+            <a th:href="${'/recipe/edit/' + recipe.id}" th:if="${isUserOwner}" class="btn btn-primary" th:text="#{EditRecipe}">Edit Recipe</a>
         </div>
         <div class="col"></div>
     </div>
@@ -92,7 +92,7 @@
                 <div class="col"><hr></div>
             </div>
             <div class="row pt-4">
-                <div class="col h5">Comments:</div>
+                <div class="col h5" th:text="#{Comments}"></div>
             </div>
         </div>
         <div class="col"></div>
@@ -105,7 +105,7 @@
                 <input value="0" type="hidden" class="rating" data-show-clear="false" data-show-caption="true"
                        data-size="sm" th:field="*{rating}">
                 <div class="d-flex flex-row pb-3">
-                    <p class="text-danger" th:if="${#fields.hasErrors('rating')}">Please give a rating!</p>
+                    <p class="text-danger" th:if="${#fields.hasErrors('rating')}" th:text="#{Pleasegivearating}">Please give a rating!</p>
                 </div>
                 <div class="d-flex flex-row pb-3">
                     <textarea class="form-control" placeholder="write a comment..." rows="3" th:field="*{textContent}"
@@ -113,7 +113,7 @@
                 </div>
                 <div class="text-danger" th:errors="*{textContent}"></div>
                 <div class="d-flex flex-row justify-content-end pb-3">
-                    <button class="btn btn-primary btn-sm" name="action" value="addComment" type="submit">Post</button>
+                    <button class="btn btn-primary btn-sm" name="action" value="addComment" type="submit" th:text="#{Post}">Post</button>
                 </div>
                 <hr>
             </form>
