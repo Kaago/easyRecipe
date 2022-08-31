@@ -15,9 +15,10 @@
                     </ul>
                 </div>
                 <div class="mr-2">
-                    <select class="custom-select form-control bg-dark text-white" aria-label="Default select example">
-                        <option value="1">English</option>
-                        <option value="2">German</option>
+                    <select id="locales" class="custom-select form-control bg-dark text-white" aria-label="Default select example">
+                        <option value="" th:text="#{lang.change}"></option>
+                        <option value="en_US" th:text="#{lang.en}"></option>
+                        <option value="de_DE" th:text="#{lang.de}"></option>
                     </select>
                 </div>
                 <form  class="float-right" method="post" th:action="@{/logout}">
@@ -29,4 +30,14 @@
         </div>
     </div>
     <div class="col"></div>
+    <script>
+        $(document).ready(function(){
+            $('#locales').change(function(){
+                let element = $("#locales").val();
+                if (element != '') {
+                    window.location.replace('?lang=' + element);
+                }
+            });
+        });
+    </script>
 </div>

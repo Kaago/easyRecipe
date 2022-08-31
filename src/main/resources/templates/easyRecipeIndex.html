@@ -9,7 +9,7 @@
     <div class="col"></div>
     <div class="col-7">
       <div class="row pt-4">
-        <div class="col h1" th:text="#{CreateaRecipe}"></div>
+        <div class="col h1" th:text="#{CreateRecipe}"></div>
       </div>
       <div class="row pt-4">
         <div class="col">
@@ -34,14 +34,18 @@
         <div class="col">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{Search}"></button>
         </div>
-        <div class="col-3"></div>
-        <div class="col-3">
-          <div class="row">
-            <label for="sort" class="col" th:text="#{Sortby}" ></label>
-            <select id="sort" name="sort" class="col-7 custom-select custom-select-sm mr-sm-2 bg-dark text-white" aria-label="Default select example" onchange="javascript:this.form.submit()" th:value="${sort}">
+        <div class="col-2"></div>
+        <div class="col-4">
+          <div class="row justify-content-end">
+            <div class="col no-padding">
+              <label for="sort" class="d-flex flex-column text-right mr-1" th:text="#{Sortby}" ></label>
+            </div>
+            <div class="col-4 no-padding">
+              <select id="sort" name="sort" class="d-flex flex-column custom-select custom-select-sm mr-sm-2 bg-dark text-white" aria-label="Default select example" onchange="javascript:this.form.submit()" th:value="${sort}">
               <option th:value="HighestRating" th:selected="('HighestRating' == ${sort})" th:text="#{HighestRating}"></option>
               <option th:value="LowestRating" th:selected="('LowestRating' == ${sort})" th:text="#{LowestRating}"></option>
             </select>
+            </div>
           </div>
         </div>
       </div>

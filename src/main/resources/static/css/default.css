@@ -15,3 +15,8 @@ html { overflow-y: scroll; }
 .table-line tr {
     border-bottom: 1px solid gray;
 }
+
+.no-padding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
