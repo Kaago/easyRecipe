@@ -42,6 +42,7 @@ public class RecipeController {
         Recipe recipe = recipeService.getRecipe(id);
         model.addAttribute("recipe", recipe);
         model.addAttribute("isUserOwner", userService.isUserOwner(recipe.getOwner()));
+        model.addAttribute("isUserAuthenticated", userService.isUserAuthenticated());
         model.addAttribute("commentForm", new CommentForm());
         model.addAttribute("recipeComments", commentService.getAllRecipeComments(recipe));
         if (amountServingsEntry == null || amountServingsEntry <= 0) {

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -56,7 +57,7 @@ public class User implements Comparable<User> {
     }
 
     @OneToMany( orphanRemoval = false)
-    private List<Recipe> favourites;
+    private Set<Recipe> favourites;
 
     @Override
     public int compareTo(User other) {

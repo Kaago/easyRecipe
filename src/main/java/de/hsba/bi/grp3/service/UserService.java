@@ -1,5 +1,6 @@
 package de.hsba.bi.grp3.service;
 
+import de.hsba.bi.grp3.exceptionHandlers.ForbiddenException;
 import de.hsba.bi.grp3.recipe.Recipe;
 import de.hsba.bi.grp3.repository.UserRepository;
 import de.hsba.bi.grp3.user.User;
@@ -26,7 +27,10 @@ public class UserService {
     }
 
     public User findCurrentUser() {
-        return userRepository.findByName(User.getCurrentUsername());
+        if (User.getCurrentUsername() != null) {
+            return userRepository.findByName(User.getCurrentUsername());
+        }
+        return null;
     }
 
     public Boolean isUserOwner (User owner){
@@ -36,6 +40,11 @@ public class UserService {
             return Objects.equals(owner.getId(), this.findCurrentUser().getId());
         }
         return false;
+    }
+
+    public Boolean isUserAuthenticated (){
+
+        return this.findCurrentUser() != null;
     }
 
     public void changePassword(String newPassword){
@@ -61,6 +70,8 @@ public class UserService {
 
 
     public void addFavourite(Recipe recipe) {
+
         this.findCurrentUser().addFavourite(recipe);
+
     }
 }
