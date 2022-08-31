@@ -25,7 +25,7 @@
             </table>
 
             <div class="row pt-4">
-                <div class="col h1">Rezepte</div>
+                <div class="col h1">My Recipes</div>
             </div>
             <table class="table">
                 <tbody>
@@ -35,6 +35,20 @@
                         <a th:href="${'/recipe/edit/' + recipe.getId()}" class="btn btn-primary">Edit Recipe</a>
                     </td>
 
+                </tr>
+
+                </tbody>
+            </table>
+            <div class="row pt-4">
+                <div class="col h1">Favourite Recipes</div>
+            </div>
+            <table class="table">
+                <tbody>
+                <tr th:each="recipe : ${user.getFavourites()}">
+                    <td th:text="${recipe.getTitle()}"></td>
+                    <td style="text-align: right">
+                        <a th:href="${'/recipe/' + recipe.getId()}" class="btn btn-primary">Show Recipe</a>
+                    </td>
                 </tr>
 
                 </tbody>

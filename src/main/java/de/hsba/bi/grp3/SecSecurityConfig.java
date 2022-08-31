@@ -23,7 +23,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
        http.csrf().disable();
        http.authorizeRequests()
-               .antMatchers("/", "/js/**", "/css/**").permitAll()
+               .antMatchers("/", "/js/**", "/css/**","/create-user","/create-user?error").permitAll()
                .antMatchers(HttpMethod.GET, "/easy-recipe/**").permitAll()
                .antMatchers(HttpMethod.GET, "/recipe/**").permitAll()
                .antMatchers(HttpMethod.GET, "/recipe/edit/**").authenticated()

@@ -1,10 +1,8 @@
 package de.hsba.bi.grp3.user;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import de.hsba.bi.grp3.recipe.Recipe;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +10,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,8 +43,10 @@ public class User implements Comparable<User> {
 
     private String role;
 
-    public User(String name) {
+    public User(String name, String password) {
         this.name = name;
+        this.password = password;
+        this.role = USER_ROLE;
     }
 
     public User(String name, String password, String role) {
@@ -52,6 +54,9 @@ public class User implements Comparable<User> {
         this.password = password;
         this.role = role;
     }
+
+    @OneToMany( orphanRemoval = false)
+    private List<Recipe> favourites;
 
     @Override
     public int compareTo(User other) {
@@ -61,6 +66,10 @@ public class User implements Comparable<User> {
     @Override
     public String toString() {
         return name;
+    }
+
+    public void addFavourite(Recipe recipe) {
+        this.favourites.add(recipe);
     }
 }
 

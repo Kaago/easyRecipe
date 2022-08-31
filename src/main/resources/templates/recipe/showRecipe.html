@@ -13,6 +13,9 @@
             </div>
             <div class="row">
                 <div class="col" th:text="${recipe.description}"></div>
+                <div class="col">
+                    <a class="ui-button" th:href="@{'/user/add-favourite/' + ${recipe.getId()}}"> <span>Add to Favourites</span></a>
+                </div>
             </div>
             <div class="row">
                 <div class="col"><hr></div>

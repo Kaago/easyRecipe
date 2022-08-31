@@ -1,15 +1,11 @@
 package de.hsba.bi.grp3.service;
 
-import de.hsba.bi.grp3.comment.Comment;
 import de.hsba.bi.grp3.recipe.Recipe;
-import de.hsba.bi.grp3.repository.CommentRepository;
 import de.hsba.bi.grp3.repository.UserRepository;
 import de.hsba.bi.grp3.user.User;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -22,6 +18,7 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+
     }
 
     public User save(User user) {
@@ -51,5 +48,19 @@ public class UserService {
 
     }
 
+    public Boolean isUsernameUnique(String username){
 
+     Boolean isUniqe = userRepository.findByName(username) == null;
+
+     return isUniqe;
+    }
+
+    public void saveUser(User user){
+        userRepository.save(user);
+    }
+
+
+    public void addFavourite(Recipe recipe) {
+        this.findCurrentUser().addFavourite(recipe);
+    }
 }
