@@ -11,22 +11,24 @@ import java.util.List;
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     // Order All Recipes by the highest average Comment Rating
-    @Query("SELECT r FROM Recipe r LEFT JOIN r.comments c GROUP BY r ORDER BY AVG(c.rating) DESC")
-    List<Recipe> findAllRecipeOrderByRatingDesc(@Param("search") String search);
+    @Query("SELECT r FROM Recipe r JOIN r.comments c WHERE r.isPrivat = false GROUP BY r ORDER BY AVG(c.rating) DESC")
+    List<Recipe> findAllRecipeOrderByRatingDesc();
 
     // Order Recipes by a user given search text and the highest average Comment Rating
-    @Query("SELECT r FROM Recipe r LEFT JOIN r.comments c JOIN r.ingredients i where i.name like %:search% or r.title like %:search% GROUP BY r ORDER BY AVG(c.rating) DESC")
+    @Query("SELECT r FROM Recipe r JOIN r.comments c JOIN r.ingredients i WHERE lower(i.name) LIKE lower(concat('%', :search,'%')) OR lower(r.title) LIKE lower(concat('%', :search,'%')) AND r.isPrivat = false GROUP BY r ORDER BY AVG(c.rating) DESC")
     List<Recipe> findRecipeBySearchTextOrderByRatingDesc(@Param("search") String search);
 
     // Order All Recipes by the lowest average Comment Rating
-    @Query("SELECT r FROM Recipe r LEFT JOIN r.comments c GROUP BY r ORDER BY AVG(c.rating) ASC")
-    List<Recipe> findAllRecipeOrderByRatingAsc(@Param("search") String search);
+    @Query("SELECT r FROM Recipe r JOIN r.comments c  WHERE r.isPrivat = false GROUP BY r ORDER BY AVG(c.rating) ASC")
+    List<Recipe> findAllRecipeOrderByRatingAsc();
 
     // Order Recipes by a user given search text and the lowest average Comment Rating
-    @Query("SELECT r FROM Recipe r LEFT JOIN r.comments c JOIN r.ingredients i where i.name like %:search% or r.title like %:search% GROUP BY r ORDER BY AVG(c.rating) ASC")
+    @Query("SELECT r FROM Recipe r JOIN r.comments c JOIN r.ingredients i WHERE lower(i.name) LIKE lower(concat('%', :search,'%')) OR lower(r.title) LIKE lower(concat('%', :search,'%')) AND r.isPrivat = false GROUP BY r ORDER BY AVG(c.rating) ASC")
     List<Recipe> findRecipeBySearchTextOrderByRatingAsc(@Param("search") String search);
 
-
-    @Query("select distinct r from Recipe r where r.owner = :search")
+    @Query("SELECT DISTINCT r FROM Recipe r WHERE r.owner = :search")
     List<Recipe> findRecipeByUser(@Param("search") User user);
+
+    @Query("SELECT DISTINCT r FROM Recipe r WHERE r.isPrivat = false")
+    List<Recipe> findAllPublicRecipe();
 }

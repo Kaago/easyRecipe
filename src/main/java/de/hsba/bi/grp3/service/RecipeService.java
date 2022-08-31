@@ -68,12 +68,12 @@ public class RecipeService {
 
     public List<Recipe> findRecipeBySearchText(String search, String order) {
         if (order.equals("HighestRating")) {
-            return search.isBlank() ? repository.findAllRecipeOrderByRatingDesc(search.trim()) : repository.findRecipeBySearchTextOrderByRatingDesc(search.trim());
+            return search.isBlank() ? repository.findAllRecipeOrderByRatingDesc() : repository.findRecipeBySearchTextOrderByRatingDesc(search.trim());
         }
         else if (order.equals("LowestRating")) {
-            return search.isBlank() ? repository.findAllRecipeOrderByRatingAsc(search.trim()) : repository.findRecipeBySearchTextOrderByRatingAsc(search.trim());
+            return search.isBlank() ? repository.findAllRecipeOrderByRatingAsc() : repository.findRecipeBySearchTextOrderByRatingAsc(search.trim());
         }
-        return repository.findAllRecipeOrderByRatingDesc(search.trim());
+        return repository.findAllRecipeOrderByRatingDesc();
     }
 
     public List<Recipe> findRecipeByUser(User user) {
