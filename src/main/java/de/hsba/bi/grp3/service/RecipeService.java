@@ -85,10 +85,10 @@ public class RecipeService {
     }
 
     public Double getServingsFactor (Integer factor, Integer base){
-        if (base == null || base == 0) {
+        if (base == null || base <= 0) {
             return 1D;
         }
-        if (factor == null) {
+        if (factor == null || factor <= 0) {
             return base.doubleValue();
         }
         return factor.doubleValue()/base.doubleValue();
