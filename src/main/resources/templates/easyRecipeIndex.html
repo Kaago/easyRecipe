@@ -9,13 +9,13 @@
     <div class="col"></div>
     <div class="col-7">
       <div class="row pt-4">
-        <div class="col h1">Create a recipes!</div>
+        <div class="col h1" th:text="#{CreateaRecipe}"></div>
       </div>
       <div class="row pt-4">
         <div class="col">
           <form action="/easy-recipe" method="post" class="form-inline" th:object="${recipeForm}">
             <input name="name" type="text" placeholder="Name" class="form-control mr-2" th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}" th:field="*{title}">
-            <button type="submit" class="btn btn-primary">Create new recipe</button>
+            <button type="submit" class="btn btn-primary" th:text="#{CreateNewRecipe}"></button>
             <span class="text-danger" th:errors="*{title}" />
           </form>
         </div>
@@ -24,7 +24,7 @@
         <div class="col"><hr></div>
       </div>
       <div class="row pt-4">
-        <div class="col h1">Search for recipes!</div>
+        <div class="col h1" th:text="#{SearchforRecipes}"></div>
       </div>
       <form class="" th:action="${'/easy-recipe'}" method="get">
       <div class="row pt-4">
@@ -32,15 +32,15 @@
             <input class="form-control mr-sm-2" name="search" placeholder="Search" th:value="${search}" type="text">
         </div>
         <div class="col">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{Search}"></button>
         </div>
         <div class="col-3"></div>
         <div class="col-3">
           <div class="row">
-            <label for="sort" class="col">Sort by: </label>
+            <label for="sort" class="col" th:text="#{Sortby}" ></label>
             <select id="sort" name="sort" class="col-7 custom-select custom-select-sm mr-sm-2 bg-dark text-white" aria-label="Default select example" onchange="javascript:this.form.submit()" th:value="${sort}">
-              <option th:value="HighestRating" th:selected="('HighestRating' == ${sort})">Highest Rating</option>
-              <option th:value="LowestRating" th:selected="('LowestRating' == ${sort})">Lowest Rating</option>
+              <option th:value="HighestRating" th:selected="('HighestRating' == ${sort})" th:text="#{HighestRating}"></option>
+              <option th:value="LowestRating" th:selected="('LowestRating' == ${sort})" th:text="#{LowestRating}"></option>
             </select>
           </div>
         </div>
@@ -56,8 +56,8 @@
           <ul class="list-unstyled">
             <li th:if="${recipes.isEmpty() == false}">
               <div class="row ml-1">
-                <div class="col">Recipe</div>
-                <div class="col">Avg. Rating</div>
+                <div class="col" th:text="#{Recipe}"></div>
+                <div class="col" th:text="#{Avg.Rating}"></div>
               </div>
               <div class="row">
                 <div class="col"><hr></div>
@@ -65,7 +65,7 @@
             </li>
             <li th:if="${recipes.isEmpty() == true}">
               <div class="row ml-1">
-                <div class="col">No search results!</div>
+                <div class="col" th:text="#{Nosearchresults}"></div>
               </div>
               <div class="row">
                 <div class="col"><hr></div>

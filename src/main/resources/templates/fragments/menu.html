@@ -3,14 +3,14 @@
     <div class="col-7">
         <div class="row d-flex flex-column">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand h1" th:href="${'/'}">easyRecipe</a>
+                <a class="navbar-brand h1" th:href="${'/'}" th:text="#{easyRecipe}" ></a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="${'/'}">Home</a>
+                            <a class="nav-link" th:href="${'/'}" th:text="#{Home}"></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="${'/user'}">Account</a>
+                            <a class="nav-link" th:href="${'/user'}" th:text="#{Account}"></a>
                         </li>
                     </ul>
                 </div>
@@ -21,10 +21,10 @@
                     </select>
                 </div>
                 <form  class="float-right" method="post" th:action="@{/logout}">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                        <span th:text="'@'+${#httpServletRequest.remoteUser}" /> abmelden</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{logout}" >
+                        <span th:text="'@'+${#httpServletRequest.remoteUser} "></span></button>
                 </form>
-                <a class="btn btn-outline-success my-2 my-sm-0" th:href="${'/login'}">Login</a>
+                <a class="btn btn-outline-success my-2 my-sm-0" th:href="${'/login'}" th:text="#{login}" ></a>
             </nav>
         </div>
     </div>

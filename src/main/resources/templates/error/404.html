@@ -4,8 +4,8 @@
 <body>
 <div class="container">
   <div class="my-4">
-    <h2> Das sollte nicht passieren, diese Seite existiert nicht.</h2>
-    <h3>Hier geht es zur <a href="/">Startseite</a></h3>
+    <h2 th:text="#{Error1}"> Das sollte nicht passieren, diese Seite existiert nicht.</h2>
+    <h3 th:text="#{Error2}">Hier geht es zur <a href="/" th:text="#{HomePage}"></a></h3>
   </div>
 </div>
 </body>

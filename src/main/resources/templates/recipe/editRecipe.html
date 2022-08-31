@@ -9,13 +9,13 @@
         <div class="col"></div>
         <div class="col-7">
             <div class="row pt-4">
-                <div class="col h1">Create your Recipe</div>
+                <div class="col h1" th:text="#{CreateYourRecipe}"></div>
             </div>
             <form class="" th:action="${'/recipe/edit/' + recipe.id}" th:object="${recipeForm}" method="post">
                 <table class="table">
                     <tr>
                         <th>
-                            <label for="title">Name of Recipe:</label>
+                            <label for="title" th:text="#{NameOfRecipe}"></label>
                         </th>
                         <th>
                             <input class="form-control form-control-sm" type="text" id="title" th:field="*{title}"
@@ -25,7 +25,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <label for="description">Additional Information:</label>
+                            <label for="description" th:text="#{AdditionalInformation}"></label>
                         </th>
                         <th>
                             <input class="form-control form-control-sm" type="text" id="description"
@@ -36,7 +36,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <label for="servings">Portions:</label>
+                            <label for="servings" th:text="#{Portions}"></label>
                         </th>
                         <th>
                             <input class="form-control form-control-sm" type="number" id="servings" name="servings"
@@ -47,7 +47,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <label for="instruction">Instruction:</label>
+                            <label for="instruction" th:text="#{Instruction}"></label>
                         </th>
                         <th>
                     <textarea class="form-control form-control-sm" type="text" id="instruction" name="instruction"
@@ -58,7 +58,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <label for="difficulty">Difficulty:</label>
+                            <label for="difficulty" th:text="#{Difficulty}"></label>
                         </th>
                         <th>
                             <select class="form-control form-control-sm" id="difficulty" name="difficulty"
@@ -70,7 +70,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <label for="prepTime">Preparation Time:</label>
+                            <label for="prepTime" th:text="#{PreparationTime}"></label>
                         </th>
                         <th>
                             <input class="form-control form-control-sm" type="number" min="0" id="prepTime"
@@ -82,7 +82,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <label for="cookTime">Cooking Time:</label>
+                            <label for="cookTime" th:text="#{CookingTime}"></label>
                         </th>
                         <th>
                             <input class="form-control form-control-sm" type="number" id="cookTime" name="cookTime"
@@ -93,7 +93,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <label for="isPrivat">Private Recipe?</label>
+                            <label for="isPrivat" th:text="#{PrivateRecipe}"></label>
                         </th>
                         <th>
                             <input class="form-control-sm" type="checkbox" id="isPrivat" name="isPrivat"
@@ -102,7 +102,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <button class="btn btn-primary btn-sm" type="submit">Save Recipe</button>
+                            <button class="btn btn-primary btn-sm" type="submit"th:text="#{SaveRecipe}"></button>
                         </th>
                         <th>
                         </th>
@@ -117,13 +117,13 @@
         <div class="col"></div>
         <div class="col-7">
             <div class="row pt-4">
-                <div class="col h1">Add Ingredients</div>
+                <div class="col h1" th:text="#{AddIngredients}"></div>
             </div>
             <table class="table" th:if="${recipe.ingredientEntries != null and recipe != null}">
                 <tr>
-                    <th>Amount</th>
-                    <th>Unit of Measurement</th>
-                    <th>Name of Ingredient</th>
+                    <th th:text="#{Amout}"></th>
+                    <th th:text="#{UnitofMeasurement}"></th>
+                    <th th:text="#{NameofIngredient}"></th>
                     <th></th>
                 </tr>
                 <tr th:each="ingredient : ${recipe.ingredientEntries}">
@@ -131,8 +131,7 @@
                     <td th:text="${ingredient.uom}" name="uom"></td>
                     <td th:text="${ingredient.name}" name="name"></td>
                     <th><a class="btn btn-primary btn-sm"
-                           th:href="${'/recipe/edit/' + recipe.id + '/deleteIngredient/' + ingredientStat.index}">Delete
-                        Ingredient</a></th>
+                           th:href="${'/recipe/edit/' + recipe.id + '/deleteIngredient/' + ingredientStat.index}" th:text="#{DeleteIngredient}"></a></th>
                 </tr>
                 <tr>
                     <form th:action="${'/recipe/edit/' + recipe.id + '/add-ingredient/'}" th:object="${ingredientForm}"
@@ -148,8 +147,7 @@
                                    th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"><span
                                 class="text-danger" th:errors="*{name}"></span></th>
                         <th>
-                            <button class="btn btn-primary btn-sm" type="submit" name="action" value="addIngredient">Add
-                                Ingredient
+                            <button class="btn btn-primary btn-sm" type="submit" name="action" value="addIngredient" th:text="#{AddIngredient}">
                             </button>
                         </th>
                     </form>
@@ -157,7 +155,7 @@
                 <tr>
                     <th>
                         <form th:action="${'/recipe/edit/' + recipe.id + '/deleteRecipe/'}" method="post" class="form">
-                            <button type="submit" class="btn-sm btn btn-danger">Delete Recipe</button>
+                            <button type="submit" class="btn-sm btn btn-danger" th:text="#{DeleteRecipe}"></button>
                         </form>
                     </th>
                 </tr>
