@@ -72,6 +72,14 @@ public class UserController {
         return index(model);
     }
 
+    @RequestMapping("/add-favourite/{id}")
+    public String addFavourite(@PathVariable("id") Long id){
+
+        userService.addFavourite(recipeService.getRecipe(id));
+
+        return "redirect:/recipe/"+id;
+    }
+
 }
 
 

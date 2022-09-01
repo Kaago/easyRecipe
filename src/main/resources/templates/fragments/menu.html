@@ -25,7 +25,8 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{logout}" >
                         <span th:text="'@'+${#httpServletRequest.remoteUser} "></span></button>
                 </form>
-                <a class="btn btn-outline-success my-2 my-sm-0" th:href="${'/login'}" th:text="#{login}" ></a>
+                <a class="btn btn-outline-success my-2 my-sm-0" th:href="${'/login'}">Login</a>
+                <a class="btn btn-outline-success my-2 my-sm-0" th:href="${'/create-user'}">Registrieren</a>
             </nav>
         </div>
     </div>

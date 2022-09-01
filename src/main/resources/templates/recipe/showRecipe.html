@@ -13,6 +13,9 @@
             </div>
             <div class="row">
                 <div class="col" th:text="${recipe.description}"></div>
+                <div class="col">
+                    <a class="ui-button" th:if="${isUserAuthenticated}" th:href="@{'/user/add-favourite/' + ${recipe.getId()}}"> <span>Add to Favourites</span></a>
+                </div>
             </div>
             <div class="row">
                 <div class="col"><hr></div>
@@ -99,7 +102,7 @@
     </div>
     <div class="row pt-2">
         <div class="col"></div>
-        <div class="col-7">
+        <div class="col-7" >
             <form th:action="${'/recipe/' + recipe.id + '/add-comment/'}" th:object="${commentForm}" method="post"
                   class="mt-5">
                 <input value="0" type="hidden" class="rating" data-show-clear="false" data-show-caption="true"
