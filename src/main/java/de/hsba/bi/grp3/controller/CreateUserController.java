@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,7 +31,10 @@ public class CreateUserController {
     }
 
     @PostMapping
-    public String createUser(@Valid UserValidationForm userValidationForm) {
+    public String createUser(@Valid UserValidationForm userValidationForm, BindingResult userBinding) {
+        if (userBinding.hasErrors()){
+            return "redirect:/create-user?error";
+        }
         if (userValidationForm.getPasswordFirst().equals(userValidationForm.getPasswordSecond()) && userService.isUsernameUnique(userValidationForm.getName())) {
             User newUser = userValidationFormConverter.userValidationFormToUser(userValidationForm);
             userService.saveUser(newUser);

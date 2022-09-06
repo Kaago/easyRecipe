@@ -12,14 +12,17 @@
             </div>
             <form th:action="@{/create-user}" th:object="${userValidationForm}" method="POST" enctype="utf8">
 
-                <input type="text" placeholder="username" th:field="*{name}"/>
+                <input class="form-control form-control-sm" type="text" placeholder="username" th:field="*{name}"/>
 
-                <input type="text" placeholder="password" th:field="*{passwordFirst}"/>
+                <input class="form-control form-control-sm" type="text" placeholder="password" th:field="*{passwordFirst}"/>
 
-                <input type="text" placeholder="password" th:field="*{passwordSecond}"/>
+                <input class="form-control form-control-sm" type="text" placeholder="password"  th:field="*{passwordSecond}"/>
 
-                <button type="submit">Create Account</button>
+                <button class="btn btn-primary btn-sm" type="submit">Create Account</button>
             </form>
+            <span th:if="${(param.error != null)}">
+                <p style="color: red"> Regestrierung fehlgeschlagen (Passwörte)</p>
+            </span>
         </div>
         <div class="col"></div>
     </div>
