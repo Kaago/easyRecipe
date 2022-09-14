@@ -21,10 +21,14 @@ public class CreateUserController {
 
     private final UserValidationFormConverter userValidationFormConverter;
 
+    @ModelAttribute
+    public void isUserAuthenticated (Model model){
+        model.addAttribute("isUserAuthenticated", userService.isUserAuthenticated());
+    }
 
     @GetMapping
     public String showCreateUser(Model model) {
-
+        if (userService.isUserAuthenticated())return "redirect:/";
         model.addAttribute("userValidationForm", new UserValidationForm());
 
         return "user/createUser";

@@ -36,13 +36,22 @@ public class RecipeController {
     private final CommentFormConverter commentFormConverter;
     private final RecipeFormConverter recipeFormConverter;
 
+    @ModelAttribute
+    public void isUserAuthenticated (Model model){
+        model.addAttribute("isUserAuthenticated", userService.isUserAuthenticated());
+    }
 
     @GetMapping("/{id}")
     public String showSelectedRecipe(@PathVariable("id") Long id, Model model, @RequestParam(value = "amountServingsEntry", required = false, defaultValue = "") Integer amountServingsEntry, @ModelAttribute("AmountServingsForm") AmountServingsForm amountServingsForm) {
         Recipe recipe = recipeService.getRecipe(id);
+
+        if (recipe.getIsPrivat() && !userService.isUserOwner(recipe.getOwner())){
+            throw new ForbiddenException();
+        }
+
         model.addAttribute("recipe", recipe);
         model.addAttribute("isUserOwner", userService.isUserOwner(recipe.getOwner()));
-        model.addAttribute("isUserAuthenticated", userService.isUserAuthenticated());
+        //model.addAttribute("isUserAuthenticated", userService.isUserAuthenticated());
         model.addAttribute("commentForm", new CommentForm());
         model.addAttribute("recipeComments", commentService.getAllRecipeComments(recipe));
         if (amountServingsEntry == null || amountServingsEntry <= 0) {

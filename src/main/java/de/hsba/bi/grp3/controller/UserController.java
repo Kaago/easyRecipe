@@ -28,6 +28,10 @@ public class UserController {
     private final CommentFormConverter commentFormConverter;
     private final PasswordEncoder passwordEncoder;
 
+    @ModelAttribute
+    public void isUserAuthenticated (Model model){
+        model.addAttribute("isUserAuthenticated", userService.isUserAuthenticated());
+    }
 
     @GetMapping
     public String index(Model model) {

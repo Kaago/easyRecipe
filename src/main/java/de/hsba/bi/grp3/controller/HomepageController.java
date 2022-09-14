@@ -24,6 +24,11 @@ public class HomepageController {
     private final UserService userService;
     private final RecipeFormConverter recipeFormConverter;
 
+    @ModelAttribute
+    public void isUserAuthenticated (Model model){
+        model.addAttribute("isUserAuthenticated", userService.isUserAuthenticated());
+    }
+
     @GetMapping
     public String showFilteredRecipes(Model model, @RequestParam(value = "search", required = false, defaultValue = "") String search, @RequestParam(value = "sort", required = false, defaultValue = "HighestRating") String sort) {
         model.addAttribute("recipes", recipeService.findRecipeBySearchText(search, sort)); // search method for Searching after recipe titles and ingredients

@@ -20,3 +20,6 @@ html { overflow-y: scroll; }
     padding: 0 !important;
     margin: 0 !important;
 }
+.padding {
+    padding: 5px;
+}
