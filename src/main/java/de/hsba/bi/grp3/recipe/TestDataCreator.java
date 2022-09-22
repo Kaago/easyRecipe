@@ -28,7 +28,7 @@ public class TestDataCreator {
 
     @EventListener(ApplicationStartedEvent.class)
     public void init() {
-
+/*
         User test = new User("Test",passwordEncoder.encode("Test"), User.USER_ROLE);
         userService.save(test);
         User test1 = new User("Test1",passwordEncoder.encode("Test1"), User.USER_ROLE);
@@ -80,6 +80,10 @@ public class TestDataCreator {
         recipeService.addIngredient(recipe2, new Ingredient("Mehl", 500, UnitOfMeasure.g));
         recipeService.saveRecipe(recipe2);
         commentService.createComment("Test", 3F, test, recipe2);
+
+ */
     }
+
+
 
 }
