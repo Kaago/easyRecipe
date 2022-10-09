@@ -6,5 +6,7 @@ public enum UnitOfMeasure {
     teaspoon,
     tablespoon,
     ml,
-    l
+    l,
+    piece,
+    pieces
 }
