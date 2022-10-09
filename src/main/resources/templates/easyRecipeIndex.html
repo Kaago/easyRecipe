@@ -42,9 +42,10 @@
             </div>
             <div class="col-4 no-padding">
               <select id="sort" name="sort" class="d-flex flex-column custom-select custom-select-sm mr-sm-2 bg-dark text-white" aria-label="Default select example" onchange="javascript:this.form.submit()" th:value="${sort}">
+              <option th:value="ShowAll" th:selected="('ShowAll' == ${sort})" th:text="#{ShowAll}"></option>
               <option th:value="HighestRating" th:selected="('HighestRating' == ${sort})" th:text="#{HighestRating}"></option>
               <option th:value="LowestRating" th:selected="('LowestRating' == ${sort})" th:text="#{LowestRating}"></option>
-            </select>
+             </select>
             </div>
           </div>
         </div>

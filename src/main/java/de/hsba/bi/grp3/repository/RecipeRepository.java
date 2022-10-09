@@ -26,6 +26,10 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     @Query("SELECT r FROM Recipe r JOIN r.comments c JOIN r.ingredients i WHERE lower(i.name) LIKE lower(concat('%', :search,'%')) OR lower(r.title) LIKE lower(concat('%', :search,'%')) AND r.isPrivat = false GROUP BY r ORDER BY AVG(c.rating) ASC")
     List<Recipe> findRecipeBySearchTextOrderByRatingAsc(@Param("search") String search);
 
+    // Order all Recipes by a search text
+    @Query("SELECT r FROM Recipe r JOIN r.ingredients i WHERE lower(i.name) LIKE lower(concat('%', :search,'%')) OR lower(r.title) LIKE lower(concat('%', :search,'%')) AND r.isPrivat = false GROUP BY r")
+    List<Recipe> findAllPublicRecipeBySearchText(@Param("search") String search);
+
     @Query("SELECT DISTINCT r FROM Recipe r WHERE r.owner = :search")
     List<Recipe> findRecipeByUser(@Param("search") User user);
 

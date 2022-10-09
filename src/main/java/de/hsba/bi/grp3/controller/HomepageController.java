@@ -39,7 +39,7 @@ public class HomepageController {
     }
 
     @PostMapping
-    public String createRecipe(Model model, @ModelAttribute("recipeForm") @Valid RecipeCreateForm recipeCreateForm, BindingResult recipeBinding, @RequestParam(value = "search", required = false, defaultValue = "") String search, @RequestParam(value = "sort", required = false, defaultValue = "HighestRating") String sort) {
+    public String createRecipe(Model model, @ModelAttribute("recipeForm") @Valid RecipeCreateForm recipeCreateForm, BindingResult recipeBinding, @RequestParam(value = "search", required = false, defaultValue = "") String search, @RequestParam(value = "sort", required = false, defaultValue = "ShowAll") String sort) {
         // Catch the validation errors of the RecipeCreateForm (when no title was put into the text-box)
         if (recipeBinding.hasErrors()) {
             model.addAttribute("recipes", recipeService.findRecipeBySearchText(search, sort));

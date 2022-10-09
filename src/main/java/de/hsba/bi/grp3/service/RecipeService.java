@@ -73,7 +73,10 @@ public class RecipeService {
         else if (order.equals("LowestRating")) {
             return search.isBlank() ? repository.findAllRecipeOrderByRatingAsc() : repository.findRecipeBySearchTextOrderByRatingAsc(search.trim());
         }
-        return repository.findAllRecipeOrderByRatingDesc();
+        else {
+            List<Recipe> test = search.isBlank() ? repository.findAllPublicRecipe() : repository.findAllPublicRecipeBySearchText(search.trim());
+            return test;
+        }
     }
 
     public List<Recipe> findRecipeByUser(User user) {
