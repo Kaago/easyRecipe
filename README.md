@@ -55,13 +55,5 @@
 <td>test1</td>
 <td>test1</td>
 </tr>
-<tr>
-<td>test2</td>
-<td>test2</td>
-</tr>
-<tr>
-<td>test3</td>
-<td>test3</td>
-</tr>
 
 </table>
